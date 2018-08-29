@@ -17,7 +17,7 @@ $ pandora start --name dashboard `pandora-dashboard-dir` # 使用该命令获得
 
 ![](https://user-images.githubusercontent.com/6525544/44789504-4c363100-abcf-11e8-9066-6501928f257a.png)
 
-浏览器通过9801端口访问这个dashboard，然后内部dashboard会去调用Pandora那个客户端的7002端口的接口。
+浏览器通过9801端口访问这个dashboard，Dashboard内部的结构总体如下图：
 
 ![](https://user-images.githubusercontent.com/6525544/44789098-54da3780-abce-11e8-8814-e2eec12211ff.png)
 
@@ -25,8 +25,8 @@ $ pandora start --name dashboard `pandora-dashboard-dir` # 使用该命令获得
 
 ![](https://user-images.githubusercontent.com/6525544/44789590-8d2e4580-abcf-11e8-8b0e-6e839bab9254.png)
 
-Impl文件夹内部是对应的router，然后Home回去取上面的html相关的，static取对应的js，css相关的。然后Actuator.ts则是调用7002端口里面的信息。
+Impl文件夹内部是对应的router，然后Home会去取上面的html相关的，static取对应的js，css相关的。然后Actuator.ts则是调用7002端口里面的信息。
 Stdout，DebuggerProxy都新建了对应的websocket跟后端进行通信输出对应信息。
 
 ## 总结
-总体我们看到dashboard这层，不像PM2那边的server是做了中心化存储，在中心进行查看。而Pandora当前是单机器装对应的Pandora和Pandora-dashboard，无法关于多台机器上面的Pandora的应用。
+总体我们看到dashboard这层，不像PM2那边的server是做了中心化存储，可以在中心进行查看各机器的信息。而Pandora当前是单机器装对应的Pandora和Pandora-dashboard，无法关于多台机器上面的Pandora的应用。
