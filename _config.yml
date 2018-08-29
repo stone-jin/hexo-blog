@@ -140,7 +140,7 @@ hfc_favicons:
 introduction: 不思量，自难忘！
 
 # your blog favicon icon, support two ways: local and online. the local way need you to put the icon under  themes/hexo-theme-skapp/source/img directory
-favicon_ico: http://oo12ugek5.bkt.clouddn.com/blog/images/favicon.ico
+favicon_ico: https://user-images.githubusercontent.com/6525544/44798832-169c4280-abe5-11e8-8b7c-618aee212586.png
 
 # blog logo icon in the upper left corner. support the local way and online way.
 logo: http://oo12ugek5.bkt.clouddn.com/images/logo-text-white.png
