@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>大米小米的博客</title>
+  
+  <subtitle>大米小米的博客</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://blog.fedfans.com/"/>
+  <updated>2018-08-29T12:11:29.427Z</updated>
+  <id>http://blog.fedfans.com/</id>
+  
+  <author>
+    <name>[object Object]</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>我博客的前世今生</title>
+    <link href="http://blog.fedfans.com/2018/08/29/%E6%88%91%E5%8D%9A%E5%AE%A2%E7%9A%84%E5%89%8D%E4%B8%96%E4%BB%8A%E7%94%9F/"/>
+    <id>http://blog.fedfans.com/2018/08/29/我博客的前世今生/</id>
+    <published>2018-08-29T12:11:29.426Z</published>
+    <updated>2018-08-29T12:11:29.427Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="我博客的前世今生"><a href="#我博客的前世今生" class="headerlink" title="我博客的前世今生"></a>我博客的前世今生</h2><p>原来的博客是非静态，是用vue的nuxtjs的ssr渲染，<a href="http://www.520stone.com，后台是springboot+spring" target="_blank" rel="noopener">www.520stone.com，后台是springboot+spring</a> cloud相关技术栈全部手写的。<br>现在迁移到github page里面，不然每次要续费服务器。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;我博客的前世今生&quot;&gt;&lt;a href=&quot;#我博客的前世今生&quot; class=&quot;headerlink&quot; title=&quot;我博客的前世今生&quot;&gt;&lt;/a&gt;我博客的前世今生&lt;/h2&gt;&lt;p&gt;原来的博客是非静态，是用vue的nuxtjs的ssr渲染，&lt;a href=&quot;http://w
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+</feed>
