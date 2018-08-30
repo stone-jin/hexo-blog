@@ -195,7 +195,7 @@ sitemap:
 gitTalk:
   clientId: 63d06125b339465f0bce
   clientSecret: 12a9180d9606c445e08a9e176254e2cb5a18387b
-  repo: stone-jin.github.io/hexo-blog
+  repo: hexo-blog
   owner: stone-jin
   admin:
     - stone-jin
