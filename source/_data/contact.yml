@@ -1,0 +1,9 @@
+- title: github
+  icon: icon-github
+  link: https://github.com/stone-jin
+- title: email
+  icon: icon-email
+  link: mailto:hzjinbing@163.com
+- title: rss
+  icon: icon-rss
+  link: /atom.xml

@@ -1,0 +1,12 @@
+friend_links:
+  - name: Spring For All社区
+    desc: Spring CLoud、Spring Boot等技术栈
+    link: http://spring4all.com/
+  - name: ANOYI 轻量级微服务架构
+    desc: ANOYI 轻量级微服务架构
+    link: https://anoyi.com/
+
+build_tools:
+  - name: Hexo
+    desc: Blog Framework
+    link: https://hexo.io/
