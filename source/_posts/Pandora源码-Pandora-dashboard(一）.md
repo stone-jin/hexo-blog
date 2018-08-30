@@ -1,9 +1,18 @@
 ---
 title: Pandora源码-Pandora-dashboard(一)
 cover: https://img.zcool.cn/community/011e475b86a540a80120245c336724.jpg@1280w_1l_2o_100sh.jpg
+subtitle: Pandora，一个可管理、可度量、可追踪的Node.js应用管理器。
+date: 2018-08-29 22:13:18
 author: 
   nick: 金炳
   link: https://www.github.com/stone-jin
+categories:
+- Pandora源码分析
+tags:
+- Pandora
+- NodeJs
+- Node监控
+- JavaScript
 ---
 
 ## 简介
