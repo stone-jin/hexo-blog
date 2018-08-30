@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.fedfans.com/"/>
-  <updated>2018-08-29T13:21:44.651Z</updated>
+  <updated>2018-08-30T10:04:15.707Z</updated>
   <id>http://blog.fedfans.com/</id>
   
   <author>
@@ -18,10 +18,10 @@
   
   <entry>
     <title>Pandora源码-Pandora-dashboard(一)</title>
-    <link href="http://blog.fedfans.com/2018/08/29/Pandora%E6%BA%90%E7%A0%81-Pandora-dashboard(%E4%B8%80%EF%BC%89/"/>
-    <id>http://blog.fedfans.com/2018/08/29/Pandora源码-Pandora-dashboard(一）/</id>
-    <published>2018-08-29T13:21:44.650Z</published>
-    <updated>2018-08-29T13:21:44.651Z</updated>
+    <link href="http://blog.fedfans.com/2018/08/30/Pandora%E6%BA%90%E7%A0%81-Pandora-dashboard(%E4%B8%80%EF%BC%89/"/>
+    <id>http://blog.fedfans.com/2018/08/30/Pandora源码-Pandora-dashboard(一）/</id>
+    <published>2018-08-30T10:04:15.707Z</published>
+    <updated>2018-08-30T10:04:15.707Z</updated>
     
     <content type="html"><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Pandora是阿里，一个可管理、可度量、可追踪的Node.js应用管理器。文档地址：<a href="http://www.midwayjs.org/pandora/zh-cn/" target="_blank" rel="noopener">http://www.midwayjs.org/pandora/zh-cn/</a> ，<br>仓库地址：<a href="https://github.com/midwayjs/pandora/" target="_blank" rel="noopener">https://github.com/midwayjs/pandora/</a> 和  <a href="https://github.com/midwayjs/pandora-dashboard。" target="_blank" rel="noopener">https://github.com/midwayjs/pandora-dashboard。</a></p><h2 id="Pandora-dashboard介绍"><a href="#Pandora-dashboard介绍" class="headerlink" title="Pandora-dashboard介绍"></a>Pandora-dashboard介绍</h2><p>这个是对应的Pandora的一个web应用，用来查看pandora应用管理器里面应用的情况。运行方法:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ npm i pandora-dashboard -g # 全局安装，会全局注册一个命令 pandora-dashboard-dir</span><br><span class="line">$ pandora start --name dashboard `pandora-dashboard-dir` # 使用该命令获得路径，用于启动</span><br></pre></td></tr></table></figure></p><p>然后访问网址: <a href="http://127.0.0.1:9081/" target="_blank" rel="noopener">http://127.0.0.1:9081/</a>, 他的网页效果：</p><p><img src="https://user-images.githubusercontent.com/6525544/44789504-4c363100-abcf-11e8-9066-6501928f257a.png" alt=""></p><p>浏览器通过9801端口访问这个dashboard，Dashboard内部的结构总体如下图：</p><p><img src="https://user-images.githubusercontent.com/6525544/44789098-54da3780-abce-11e8-8814-e2eec12211ff.png" alt=""></p><p>然后这个代码比较简单，总体是一个typescript写的一个koa程序，然后项目结构如下图:</p><p><img src="https://user-images.githubusercontent.com/6525544/44789590-8d2e4580-abcf-11e8-8b0e-6e839bab9254.png" alt=""></p><p>Impl文件夹内部是对应的router，然后Home会去取上面的html相关的，static取对应的js，css相关的。然后Actuator.ts则是调用7002端口里面的信息。<br>Stdout，DebuggerProxy都新建了对应的websocket跟后端进行通信输出对应信息。</p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>总体我们看到dashboard这层，不像PM2那边的server是做了中心化存储，可以在中心进行查看各机器的信息。而Pandora当前是单机器装对应的Pandora和Pandora-dashboard，无法关于多台机器上面的Pandora的应用。</p>]]></content>
     
