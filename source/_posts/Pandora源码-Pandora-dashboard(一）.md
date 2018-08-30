@@ -1,5 +1,7 @@
 ---
 title: Pandora源码-Pandora-dashboard(一)
+cover: https://img.zcool.cn/community/011e475b86a540a80120245c336724.jpg@1280w_1l_2o_100sh.jpg
+authorNick: 金炳
 ---
 
 ## 简介

@@ -178,12 +178,12 @@ deploy:
   repo: https://github.com/stone-jin/hexo-blog.git
   branch: gh-pages
 
-menu:
-  home: 首页
-  article: 文章
-  works: 作品
-  music: 音乐
-  about: 关于
-  docs: 文档
-  archive: 归档
-  tags: 标签
+#menu:
+#  home: 首页
+#  article: 文章
+#  works: 作品
+#  music: 音乐
+#  about: 关于
+#  docs: 文档
+#  archive: 归档
+#  tags: 标签
