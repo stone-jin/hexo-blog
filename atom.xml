@@ -18,8 +18,8 @@
   
   <entry>
     <title>Pandora源码-Pandora-dashboard(一)</title>
-    <link href="http://blog.fedfans.com/2018/08/29/Pandora%E6%BA%90%E7%A0%81-Pandora-dashboard(%E4%B8%80%EF%BC%89/"/>
-    <id>http://blog.fedfans.com/2018/08/29/Pandora源码-Pandora-dashboard(一）/</id>
+    <link href="http://blog.fedfans.com//page/article/Pandora%E6%BA%90%E7%A0%81-Pandora-dashboard(%E4%B8%80%EF%BC%89/"/>
+    <id>http://blog.fedfans.com//page/article/Pandora源码-Pandora-dashboard(一）/</id>
     <published>2018-08-29T14:13:18.000Z</published>
     <updated>2018-08-30T16:40:09.493Z</updated>
     
@@ -49,10 +49,10 @@
   
   <entry>
     <title>我博客的前世今生</title>
-    <link href="http://blog.fedfans.com/2018/08/28/%E6%88%91%E5%8D%9A%E5%AE%A2%E7%9A%84%E5%89%8D%E4%B8%96%E4%BB%8A%E7%94%9F/"/>
-    <id>http://blog.fedfans.com/2018/08/28/我博客的前世今生/</id>
+    <link href="http://blog.fedfans.com//page/article/%E6%88%91%E5%8D%9A%E5%AE%A2%E7%9A%84%E5%89%8D%E4%B8%96%E4%BB%8A%E7%94%9F/"/>
+    <id>http://blog.fedfans.com//page/article/我博客的前世今生/</id>
     <published>2018-08-28T14:13:18.000Z</published>
-    <updated>2018-08-30T16:40:14.721Z</updated>
+    <updated>2018-08-31T04:22:26.495Z</updated>
     
     <content type="html"><![CDATA[<h2 id="我博客的前世今生"><a href="#我博客的前世今生" class="headerlink" title="我博客的前世今生"></a>我博客的前世今生</h2><p>原来的博客是非静态，是用vue的nuxtjs的ssr渲染，<a href="http://www.520stone.com" target="_blank" rel="noopener">www.520stone.com</a> ，后台是springboot+spring cloud相关技术栈全部手写的。<br>现在迁移到github page里面，不然每次要续费服务器。</p>]]></content>
     
@@ -71,6 +71,86 @@
       <category term="生活" scheme="http://blog.fedfans.com/tags/%E7%94%9F%E6%B4%BB/"/>
     
       <category term="杂记" scheme="http://blog.fedfans.com/tags/%E6%9D%82%E8%AE%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>关于服务器上面搭建了gitlab遇到的问题</title>
+    <link href="http://blog.fedfans.com//page/article/45/"/>
+    <id>http://blog.fedfans.com//page/article/45/</id>
+    <published>2018-07-12T14:35:14.000Z</published>
+    <updated>2018-08-31T05:34:28.039Z</updated>
+    
+    <content type="html"><![CDATA[<p>原先在自己电脑搭建了gitlab私服，但是由于要使用gitlab-ci，所以我就在阿里云服务器上面搭建了gitlab私服。</p><p>问题一：gitlab私服卡啊？</p><p>所以解决这个问题，就升级配置，当前使用了1G 2G内存，同时配置对应的swap，最终解决，如果服务器配置很差，升个级吧。</p><p>问题二：gitlab-ci的过程中，开头配置在相同电脑，然后一旦我提交了代码后，gitlab就无法访问了，同时我的站点也无法访问了？</p><p>首先我想法：cpu，带宽。</p><p>带宽：那我配置下我gitlab域名的host，这样可以通过127.0.0.1走本地，那带宽就不用占用我的带宽了，毕竟带宽这么贵。</p><p>cpu：处理了上面这种情况，问题还是在，那想法cpu，就是执行我的部署脚本的时候cpu占用大。后来发现这个好像并不影响。</p><p>最后发现是编译过程比较耗cpu，所以最终我把这个编译，放到一个小阿里云服务器，配置一个gitlab-runner解决。</p><p>最终，代码提交，执行gitlab-ci操作，编译部署，完美~不会影响gitlab和自己站点的访问了。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;原先在自己电脑搭建了gitlab私服，但是由于要使用gitlab-ci，所以我就在阿里云服务器上面搭建了gitlab私服。&lt;/p&gt;
+&lt;p&gt;问题一：gitlab私服卡啊？&lt;/p&gt;
+&lt;p&gt;所以解决这个问题，就升级配置，当前使用了1G 2G内存，同时配置对应的swap，最终解决，
+      
+    
+    </summary>
+    
+      <category term="问题篇" scheme="http://blog.fedfans.com/categories/%E9%97%AE%E9%A2%98%E7%AF%87/"/>
+    
+    
+      <category term="Gitlab" scheme="http://blog.fedfans.com/tags/Gitlab/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>阿里云服务器配置swap分区</title>
+    <link href="http://blog.fedfans.com//page/article/44/"/>
+    <id>http://blog.fedfans.com//page/article/44/</id>
+    <published>2018-07-11T14:52:16.000Z</published>
+    <updated>2018-08-31T05:30:13.365Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://yq.aliyun.com/articles/52098" target="_blank" rel="noopener">https://yq.aliyun.com/articles/52098</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;a href=&quot;https://yq.aliyun.com/articles/52098&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://yq.aliyun.com/articles/52098&lt;/a&gt;&lt;/p&gt;
+
+      
+    
+    </summary>
+    
+      <category term="服务器" scheme="http://blog.fedfans.com/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
+    
+    
+      <category term="服务器" scheme="http://blog.fedfans.com/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>关于大型angular项目编译问题</title>
+    <link href="http://blog.fedfans.com//page/article/43/"/>
+    <id>http://blog.fedfans.com//page/article/43/</id>
+    <published>2018-07-11T14:11:25.000Z</published>
+    <updated>2018-08-31T05:32:24.860Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>当angular项目比较庞大的时候，打包时间就会比较慢。然后这个时候会出现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&lt;--- Last few GCs ---&gt;</span><br><span class="line"></span><br><span class="line">[22517:0x102802400]   176590 ms: Mark-sweep 1367.9 (1430.1) -&gt; 1367.9 (1430.1) MB, 1351.8 / 0.0 ms  allocation failure GC in old space requested</span><br><span class="line">[22517:0x102802400]   178544 ms: Mark-sweep 1367.9 (1430.1) -&gt; 1367.9 (1427.1) MB, 1771.4 / 0.0 ms  last resort GC in old space requested</span><br><span class="line">[22517:0x102802400]   180071 ms: Mark-sweep 1367.9 (1427.1) -&gt; 1367.9 (1427.1) MB, 1526.6 / 0.0 ms  last resort GC in old space requested</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;--- JS stacktrace ---&gt;</span><br><span class="line"></span><br><span class="line">==== JS stack trace =========================================</span><br><span class="line"></span><br><span class="line">Security context: 0x2f04b2e25529 &lt;JSObject&gt;</span><br><span class="line">    1: forEachChild [/Users/stone-jin/Downloads/metronic_v5.2 3/metronic_v5.2/angular/dist/demo/default/node_modules/typescript/lib/typescript.js:~11931] [pc=0x305175bbd919](this=0x2f04ace04a51 &lt;Object map = 0x2f04b1451ae9&gt;,node=0x2f04692c72a1 &lt;NodeObject map = 0x2f04352d8e11&gt;,cbNode=0x2f0421f75a69 &lt;JSFunction visitNode (sfi = 0x2f0414f144b9)&gt;,cbNodes=0x2f04fc6822d1 &lt;undefined&gt;)</span><br><span class="line">    2: arguments...</span><br><span class="line"></span><br><span class="line">FATAL ERROR: CALL_AND_RETRY_LAST Allocation failed - JavaScript heap out of memory</span><br><span class="line"> 1: node::Abort() [/usr/local/lib/node_modules/node/bin//node]</span><br><span class="line"> 2: node::FatalTryCatch::~FatalTryCatch() [/usr/local/lib/node_modules/node/bin//node]</span><br><span class="line"> 3: v8::internal::V8::FatalProcessOutOfMemory(char const*, bool) [/usr/local/lib/node_modules/node/bin//node]</span><br><span class="line"> 4: v8::internal::Factory::NewCodeRaw(int, bool) [/usr/local/lib/node_modules/node/bin//node]</span><br><span class="line"> 5: v8::internal::Factory::NewCode(v8::internal::CodeDesc const&amp;, unsigned int, v8::internal::Handle&lt;v8::internal::Object&gt;, bool, int) [/usr/local/lib/node_modules/node/bin//node]</span><br><span class="line"> 6: v8::internal::CodeGenerator::MakeCodeEpilogue(v8::internal::TurboAssembler*, v8::internal::EhFrameWriter*, v8::internal::CompilationInfo*, v8::internal::Handle&lt;v8::internal::Object&gt;) [/usr/local/lib/node_modules/node/bin//node]</span><br><span class="line"> 7: v8::internal::compiler::CodeGenerator::FinalizeCode() [/usr/local/lib/node_modules/node/bin//node]</span><br><span class="line"> 8: v8::internal::compiler::PipelineImpl::FinalizeCode() [/usr/local/lib/node_modules/node/bin//node]</span><br><span class="line"> 9: v8::internal::compiler::PipelineCompilationJob::FinalizeJobImpl() [/usr/local/lib/node_modules/node/bin//node]</span><br><span class="line">10: v8::internal::Compiler::FinalizeCompilationJob(v8::internal::CompilationJob*) [/usr/local/lib/node_modules/node/bin//node]</span><br><span class="line">11: v8::internal::OptimizingCompileDispatcher::InstallOptimizedFunctions() [/usr/local/lib/node_modules/node/bin//node]</span><br><span class="line">12: v8::internal::StackGuard::HandleInterrupts() [/usr/local/lib/node_modules/node/bin//node]</span><br><span class="line">13: v8::internal::Runtime_StackGuard(int, v8::internal::Object**, v8::internal::Isolate*) [/usr/local/lib/node_modules/node/bin//node]</span><br><span class="line">14: 0x305174e042fd</span><br><span class="line">15: 0x305175bbd919</span><br></pre></td></tr></table></figure></p><p>这样的错误信息，不要慌张，这种通用类型的最简单，搜索下就好。</p><h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><p>大概就是编译慢了，node认为我们有内存泄漏了。所以这个时候我们只要通过–max-old-space-size=4096 这个来解决我们的问题即可。这个修改在node_modules/.bin下面有个ng文件。然后我们修改这个文件。</p><p>在头部的#!/usr/bin/env node之后加上–max-old-space-size=4096就可以解决我们的问题了。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h2&gt;&lt;p&gt;当angular项目比较庞大的时候，打包时间就会比较慢。然后这个时候会出现&lt;br&gt;&lt;figure class=&quot;highlight plai
+      
+    
+    </summary>
+    
+      <category term="问题篇" scheme="http://blog.fedfans.com/categories/%E9%97%AE%E9%A2%98%E7%AF%87/"/>
+    
+    
+      <category term="Angular" scheme="http://blog.fedfans.com/tags/Angular/"/>
+    
+      <category term="编译报错" scheme="http://blog.fedfans.com/tags/%E7%BC%96%E8%AF%91%E6%8A%A5%E9%94%99/"/>
     
   </entry>
   
