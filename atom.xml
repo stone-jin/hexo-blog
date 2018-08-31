@@ -128,6 +128,61 @@
   </entry>
   
   <entry>
+    <title>服务器安装node环境</title>
+    <link href="http://blog.fedfans.com//page/article/41/"/>
+    <id>http://blog.fedfans.com//page/article/41/</id>
+    <published>2018-07-11T14:11:25.000Z</published>
+    <updated>2018-08-31T05:42:18.479Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="一、介绍"><a href="#一、介绍" class="headerlink" title="一、介绍"></a>一、介绍</h2><p>我们的服务器上面，前端代码或者写nodejs的时候，我们需要安装nodejs。有几种方法可以安装，推荐使用官网下载nodejs的版本。</p><h2 id="二、安装方法"><a href="#二、安装方法" class="headerlink" title="二、安装方法"></a>二、安装方法</h2><p>方法一：（不推荐，因为安装的版本比较旧）</p><p>使用yum install nodejs</p><p>方法二：（推荐）</p><p>1、 从官网进行下载稳定版本的nodejs，官网地址：</p><p><a href="https://nodejs.org/zh-cn/download/" target="_blank" rel="noopener">https://nodejs.org/zh-cn/download/</a></p><p>2、然后下载linux 二进制文件。</p><p>然后服务器上面使用</p><p>wget 下载地址（这个地址是右键得到下载地址）</p><p>3、然后下载到的是tar.xz包</p><p>然后我们使用解压<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xz -d ***.tar.xz</span><br></pre></td></tr></table></figure></p><p>然后会变成.tar包<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -xvf ***.tar</span><br></pre></td></tr></table></figure></p><p>然后就解压完成了。</p><p>4、然后可以创建一个软连接，方便以后升级,<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -s node-**** node</span><br></pre></td></tr></table></figure></p><p>5、然后我们vim /etc/profile文件</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export NODE_HOME=/home/software/node(此处是大家放在那个路径)</span><br><span class="line">export PATH=$PATH:$NODE_HOME/bin</span><br></pre></td></tr></table></figure><p>6、然后<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure></p><p>7、我们确认下我们的环境是否安装好了，执行node -v 和npm -v</p><p>方法三：（方法一般）</p><p>下载源码包，也是方法二的地址，然后./configure &amp;&amp; make &amp;&amp; make install，请确保有安装环境的一些工具。新的服务器一般用方法二比较好。</p><h2 id="三、总结"><a href="#三、总结" class="headerlink" title="三、总结"></a>三、总结</h2><p>前面三种方法，个人还是建议使用方法二，也不麻烦。如果自己电脑环境比较全，那方法三也很快。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;一、介绍&quot;&gt;&lt;a href=&quot;#一、介绍&quot; class=&quot;headerlink&quot; title=&quot;一、介绍&quot;&gt;&lt;/a&gt;一、介绍&lt;/h2&gt;&lt;p&gt;我们的服务器上面，前端代码或者写nodejs的时候，我们需要安装nodejs。有几种方法可以安装，推荐使用官网下载nodej
+      
+    
+    </summary>
+    
+      <category term="环境搭建" scheme="http://blog.fedfans.com/categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
+    
+    
+      <category term="NodeJS" scheme="http://blog.fedfans.com/tags/NodeJS/"/>
+    
+      <category term="环境搭建" scheme="http://blog.fedfans.com/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>服务器安装maven环境</title>
+    <link href="http://blog.fedfans.com//page/article/42/"/>
+    <id>http://blog.fedfans.com//page/article/42/</id>
+    <published>2018-07-11T14:11:25.000Z</published>
+    <updated>2018-08-31T05:38:49.830Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="一、介绍"><a href="#一、介绍" class="headerlink" title="一、介绍"></a>一、介绍</h2><p>由于我现在server端使用springboot进行开发，所以maven编译这步肯定必不可少。</p><h2 id="二、安装方法"><a href="#二、安装方法" class="headerlink" title="二、安装方法"></a>二、安装方法</h2><p>打开maven官网：<a href="http://maven.apache.org/download.cgi" target="_blank" rel="noopener">http://maven.apache.org/download.cgi</a></p><p>然后拷贝下载地址，去服务器上面wget下来。</p><p>然后使用tar zxvf <strong><em>.tar.gz包，然后ln -s apache-maven-</em></strong> apache-maven创建软连接，方便升级</p><p>然后使用</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export MAVEN_HOME=/home/software/apache-maven</span><br><span class="line">export PATH=$PATH:$MAVEN_HOME/bin</span><br></pre></td></tr></table></figure><p>然后我们执行mvn -v查看下我们的maven环境是否正确。</p><p>至此我们maven已经安装完毕</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;一、介绍&quot;&gt;&lt;a href=&quot;#一、介绍&quot; class=&quot;headerlink&quot; title=&quot;一、介绍&quot;&gt;&lt;/a&gt;一、介绍&lt;/h2&gt;&lt;p&gt;由于我现在server端使用springboot进行开发，所以maven编译这步肯定必不可少。&lt;/p&gt;
+&lt;h2 id=&quot;二、
+      
+    
+    </summary>
+    
+      <category term="环境搭建" scheme="http://blog.fedfans.com/categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
+    
+    
+      <category term="环境搭建" scheme="http://blog.fedfans.com/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
+    
+      <category term="Maven" scheme="http://blog.fedfans.com/tags/Maven/"/>
+    
+  </entry>
+  
+  <entry>
     <title>关于大型angular项目编译问题</title>
     <link href="http://blog.fedfans.com//page/article/43/"/>
     <id>http://blog.fedfans.com//page/article/43/</id>
