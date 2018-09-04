@@ -128,61 +128,6 @@
   </entry>
   
   <entry>
-    <title>服务器安装node环境</title>
-    <link href="http://blog.fedfans.com//page/article/41/"/>
-    <id>http://blog.fedfans.com//page/article/41/</id>
-    <published>2018-07-11T14:11:25.000Z</published>
-    <updated>2018-08-31T05:42:18.479Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="一、介绍"><a href="#一、介绍" class="headerlink" title="一、介绍"></a>一、介绍</h2><p>我们的服务器上面，前端代码或者写nodejs的时候，我们需要安装nodejs。有几种方法可以安装，推荐使用官网下载nodejs的版本。</p><h2 id="二、安装方法"><a href="#二、安装方法" class="headerlink" title="二、安装方法"></a>二、安装方法</h2><p>方法一：（不推荐，因为安装的版本比较旧）</p><p>使用yum install nodejs</p><p>方法二：（推荐）</p><p>1、 从官网进行下载稳定版本的nodejs，官网地址：</p><p><a href="https://nodejs.org/zh-cn/download/" target="_blank" rel="noopener">https://nodejs.org/zh-cn/download/</a></p><p>2、然后下载linux 二进制文件。</p><p>然后服务器上面使用</p><p>wget 下载地址（这个地址是右键得到下载地址）</p><p>3、然后下载到的是tar.xz包</p><p>然后我们使用解压<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xz -d ***.tar.xz</span><br></pre></td></tr></table></figure></p><p>然后会变成.tar包<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -xvf ***.tar</span><br></pre></td></tr></table></figure></p><p>然后就解压完成了。</p><p>4、然后可以创建一个软连接，方便以后升级,<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -s node-**** node</span><br></pre></td></tr></table></figure></p><p>5、然后我们vim /etc/profile文件</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export NODE_HOME=/home/software/node(此处是大家放在那个路径)</span><br><span class="line">export PATH=$PATH:$NODE_HOME/bin</span><br></pre></td></tr></table></figure><p>6、然后<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure></p><p>7、我们确认下我们的环境是否安装好了，执行node -v 和npm -v</p><p>方法三：（方法一般）</p><p>下载源码包，也是方法二的地址，然后./configure &amp;&amp; make &amp;&amp; make install，请确保有安装环境的一些工具。新的服务器一般用方法二比较好。</p><h2 id="三、总结"><a href="#三、总结" class="headerlink" title="三、总结"></a>三、总结</h2><p>前面三种方法，个人还是建议使用方法二，也不麻烦。如果自己电脑环境比较全，那方法三也很快。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;一、介绍&quot;&gt;&lt;a href=&quot;#一、介绍&quot; class=&quot;headerlink&quot; title=&quot;一、介绍&quot;&gt;&lt;/a&gt;一、介绍&lt;/h2&gt;&lt;p&gt;我们的服务器上面，前端代码或者写nodejs的时候，我们需要安装nodejs。有几种方法可以安装，推荐使用官网下载nodej
-      
-    
-    </summary>
-    
-      <category term="环境搭建" scheme="http://blog.fedfans.com/categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
-    
-    
-      <category term="NodeJS" scheme="http://blog.fedfans.com/tags/NodeJS/"/>
-    
-      <category term="环境搭建" scheme="http://blog.fedfans.com/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>服务器安装maven环境</title>
-    <link href="http://blog.fedfans.com//page/article/42/"/>
-    <id>http://blog.fedfans.com//page/article/42/</id>
-    <published>2018-07-11T14:11:25.000Z</published>
-    <updated>2018-08-31T05:38:49.830Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="一、介绍"><a href="#一、介绍" class="headerlink" title="一、介绍"></a>一、介绍</h2><p>由于我现在server端使用springboot进行开发，所以maven编译这步肯定必不可少。</p><h2 id="二、安装方法"><a href="#二、安装方法" class="headerlink" title="二、安装方法"></a>二、安装方法</h2><p>打开maven官网：<a href="http://maven.apache.org/download.cgi" target="_blank" rel="noopener">http://maven.apache.org/download.cgi</a></p><p>然后拷贝下载地址，去服务器上面wget下来。</p><p>然后使用tar zxvf <strong><em>.tar.gz包，然后ln -s apache-maven-</em></strong> apache-maven创建软连接，方便升级</p><p>然后使用</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export MAVEN_HOME=/home/software/apache-maven</span><br><span class="line">export PATH=$PATH:$MAVEN_HOME/bin</span><br></pre></td></tr></table></figure><p>然后我们执行mvn -v查看下我们的maven环境是否正确。</p><p>至此我们maven已经安装完毕</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;一、介绍&quot;&gt;&lt;a href=&quot;#一、介绍&quot; class=&quot;headerlink&quot; title=&quot;一、介绍&quot;&gt;&lt;/a&gt;一、介绍&lt;/h2&gt;&lt;p&gt;由于我现在server端使用springboot进行开发，所以maven编译这步肯定必不可少。&lt;/p&gt;
-&lt;h2 id=&quot;二、
-      
-    
-    </summary>
-    
-      <category term="环境搭建" scheme="http://blog.fedfans.com/categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
-    
-    
-      <category term="环境搭建" scheme="http://blog.fedfans.com/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
-    
-      <category term="Maven" scheme="http://blog.fedfans.com/tags/Maven/"/>
-    
-  </entry>
-  
-  <entry>
     <title>关于大型angular项目编译问题</title>
     <link href="http://blog.fedfans.com//page/article/43/"/>
     <id>http://blog.fedfans.com//page/article/43/</id>
@@ -206,6 +151,419 @@
       <category term="Angular" scheme="http://blog.fedfans.com/tags/Angular/"/>
     
       <category term="编译报错" scheme="http://blog.fedfans.com/tags/%E7%BC%96%E8%AF%91%E6%8A%A5%E9%94%99/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>服务器安装maven环境</title>
+    <link href="http://blog.fedfans.com//page/article/42/"/>
+    <id>http://blog.fedfans.com//page/article/42/</id>
+    <published>2018-07-11T13:47:29.000Z</published>
+    <updated>2018-08-31T14:43:08.405Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="一、介绍"><a href="#一、介绍" class="headerlink" title="一、介绍"></a>一、介绍</h2><p>由于我现在server端使用springboot进行开发，所以maven编译这步肯定必不可少。</p><h2 id="二、安装方法"><a href="#二、安装方法" class="headerlink" title="二、安装方法"></a>二、安装方法</h2><p>打开maven官网：<a href="http://maven.apache.org/download.cgi" target="_blank" rel="noopener">http://maven.apache.org/download.cgi</a></p><p>然后拷贝下载地址，去服务器上面wget下来。</p><p>然后使用tar zxvf <strong><em>.tar.gz包，然后ln -s apache-maven-</em></strong> apache-maven创建软连接，方便升级</p><p>然后使用</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export MAVEN_HOME=/home/software/apache-maven</span><br><span class="line">export PATH=$PATH:$MAVEN_HOME/bin</span><br></pre></td></tr></table></figure><p>然后我们执行mvn -v查看下我们的maven环境是否正确。</p><p>至此我们maven已经安装完毕</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;一、介绍&quot;&gt;&lt;a href=&quot;#一、介绍&quot; class=&quot;headerlink&quot; title=&quot;一、介绍&quot;&gt;&lt;/a&gt;一、介绍&lt;/h2&gt;&lt;p&gt;由于我现在server端使用springboot进行开发，所以maven编译这步肯定必不可少。&lt;/p&gt;
+&lt;h2 id=&quot;二、
+      
+    
+    </summary>
+    
+      <category term="环境搭建" scheme="http://blog.fedfans.com/categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
+    
+    
+      <category term="环境搭建" scheme="http://blog.fedfans.com/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
+    
+      <category term="Maven" scheme="http://blog.fedfans.com/tags/Maven/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>服务器安装node环境</title>
+    <link href="http://blog.fedfans.com//page/article/41/"/>
+    <id>http://blog.fedfans.com//page/article/41/</id>
+    <published>2018-07-11T12:17:06.000Z</published>
+    <updated>2018-08-31T14:43:23.973Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="一、介绍"><a href="#一、介绍" class="headerlink" title="一、介绍"></a>一、介绍</h2><p>我们的服务器上面，前端代码或者写nodejs的时候，我们需要安装nodejs。有几种方法可以安装，推荐使用官网下载nodejs的版本。</p><h2 id="二、安装方法"><a href="#二、安装方法" class="headerlink" title="二、安装方法"></a>二、安装方法</h2><p>方法一：（不推荐，因为安装的版本比较旧）</p><p>使用yum install nodejs</p><p>方法二：（推荐）</p><p>1、 从官网进行下载稳定版本的nodejs，官网地址：</p><p><a href="https://nodejs.org/zh-cn/download/" target="_blank" rel="noopener">https://nodejs.org/zh-cn/download/</a></p><p>2、然后下载linux 二进制文件。</p><p>然后服务器上面使用</p><p>wget 下载地址（这个地址是右键得到下载地址）</p><p>3、然后下载到的是tar.xz包</p><p>然后我们使用解压<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xz -d ***.tar.xz</span><br></pre></td></tr></table></figure></p><p>然后会变成.tar包<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -xvf ***.tar</span><br></pre></td></tr></table></figure></p><p>然后就解压完成了。</p><p>4、然后可以创建一个软连接，方便以后升级,<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -s node-**** node</span><br></pre></td></tr></table></figure></p><p>5、然后我们vim /etc/profile文件</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export NODE_HOME=/home/software/node(此处是大家放在那个路径)</span><br><span class="line">export PATH=$PATH:$NODE_HOME/bin</span><br></pre></td></tr></table></figure><p>6、然后<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure></p><p>7、我们确认下我们的环境是否安装好了，执行node -v 和npm -v</p><p>方法三：（方法一般）</p><p>下载源码包，也是方法二的地址，然后./configure &amp;&amp; make &amp;&amp; make install，请确保有安装环境的一些工具。新的服务器一般用方法二比较好。</p><h2 id="三、总结"><a href="#三、总结" class="headerlink" title="三、总结"></a>三、总结</h2><p>前面三种方法，个人还是建议使用方法二，也不麻烦。如果自己电脑环境比较全，那方法三也很快。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;一、介绍&quot;&gt;&lt;a href=&quot;#一、介绍&quot; class=&quot;headerlink&quot; title=&quot;一、介绍&quot;&gt;&lt;/a&gt;一、介绍&lt;/h2&gt;&lt;p&gt;我们的服务器上面，前端代码或者写nodejs的时候，我们需要安装nodejs。有几种方法可以安装，推荐使用官网下载nodej
+      
+    
+    </summary>
+    
+      <category term="环境搭建" scheme="http://blog.fedfans.com/categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
+    
+    
+      <category term="环境搭建" scheme="http://blog.fedfans.com/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
+    
+      <category term="NodeJS" scheme="http://blog.fedfans.com/tags/NodeJS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>服务器资源有限，所以给服务器配置下swap</title>
+    <link href="http://blog.fedfans.com//page/article/40/"/>
+    <id>http://blog.fedfans.com//page/article/40/</id>
+    <published>2018-07-10T05:13:20.000Z</published>
+    <updated>2018-08-31T14:45:11.093Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="一、背景"><a href="#一、背景" class="headerlink" title="一、背景"></a>一、背景</h2><p>我们的服务器资源比较有限，所以我们需要节约资源，swap能让我们机器发挥更大的作用，否则分分钟报表。</p><p>文档：</p><p><a href="https://help.aliyun.com/knowledge_detail/42534.html" target="_blank" rel="noopener">https://help.aliyun.com/knowledge_detail/42534.html</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;一、背景&quot;&gt;&lt;a href=&quot;#一、背景&quot; class=&quot;headerlink&quot; title=&quot;一、背景&quot;&gt;&lt;/a&gt;一、背景&lt;/h2&gt;&lt;p&gt;我们的服务器资源比较有限，所以我们需要节约资源，swap能让我们机器发挥更大的作用，否则分分钟报表。&lt;/p&gt;
+&lt;p&gt;文档：&lt;
+      
+    
+    </summary>
+    
+      <category term="环境搭建" scheme="http://blog.fedfans.com/categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
+    
+    
+      <category term="Swap" scheme="http://blog.fedfans.com/tags/Swap/"/>
+    
+      <category term="环境搭建" scheme="http://blog.fedfans.com/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>搭建自己的gitlab服务以及gitlab-ci的开发模式</title>
+    <link href="http://blog.fedfans.com//page/article/39/"/>
+    <id>http://blog.fedfans.com//page/article/39/</id>
+    <published>2018-07-10T05:13:20.000Z</published>
+    <updated>2018-08-31T14:53:42.659Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h2><p>本地我自己肯定是搭建了自己的gitlab仓库的。这次主要是出于gitlab-ci的考虑，想要在把原本自己的ci流程，从本地的jenkins转义到gitlab-ci上，只需要提交代码，就能部署到我自己的服务器上面，并且希望是能区分预发布服和线上服两种环境，本地就当开发环境了。测试环境就不搞了，预发布就当测试环境用好了。所以本次目的，就是在自己的阿里云上面搭建自己的gitlab服务，域名就选择使用gitlab.fedfans.com这个域名好了。</p><h2 id="二、搭建过程"><a href="#二、搭建过程" class="headerlink" title="二、搭建过程"></a>二、搭建过程</h2><p>搭建过程主要涉及到几步：</p><ul><li>docker环境搭建（因为拿的是新的一台阿里云机器）</li><li>gitlab docker镜像运行</li><li>然后gitlab-ci的runner搭建</li><li>测试整个gitlab-ci的流程</li></ul><p>第一步：</p><p>docker官方提供了centos环境里面怎么安装docker。<a href="https://docs.docker.com/install/linux/docker-ce/centos/" target="_blank" rel="noopener">https://docs.docker.com/install/linux/docker-ce/centos/</a></p><p>第二步:</p><p>gitlab官方提供了如果使用docker安装gitlab的环境。</p><p>第三步:</p><p>3.1 根据环境安装gitlab runner, <a href="https://docs.gitlab.com/runner/" target="_blank" rel="noopener">https://docs.gitlab.com/runner/</a></p><p>3.2 然后使用linux的安装方法。<a href="https://docs.gitlab.com/runner/install/linux-manually.html" target="_blank" rel="noopener">https://docs.gitlab.com/runner/install/linux-manually.html</a></p><p>3.3 然后我们使用gitlab-runner register</p><p>他会提示我们输入gitlab地址，这个在项目的CI/CD pipelines上面有个url和token我们分别输入到gitlab-runner register中，同时使用shell模式</p><p>3.4 然后会在当前这个目录下生成一个config.toml文件</p><p>3.5 我们修改这个config.toml文件</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">concurrent = 1修改为concurrent=8</span><br></pre></td></tr></table></figure><p>3.6 然后我们使用这个shell脚本进行启动<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line">#! /bin/sh</span><br><span class="line"># chkconfig: - 99 01</span><br><span class="line"># description: GitLab Runner</span><br><span class="line"># processname: /usr/bin/gitlab-ci-multi-runner</span><br><span class="line"></span><br><span class="line"># Source function library.</span><br><span class="line">. /etc/rc.d/init.d/functions</span><br><span class="line"></span><br><span class="line">name=&quot;yydbhz&quot;</span><br><span class="line">desc=&quot;yydbhz&quot;</span><br><span class="line">user=&quot;&quot;</span><br><span class="line">cmd=/home/root/.gitlab-runner/gitlab-runner</span><br><span class="line">args=&quot; &quot;run&quot; &quot;--working-directory&quot; &quot;/home/root/.gitlab-runner&quot; &quot;--config&quot; &quot;/home/root/.gitlab-runner/config.toml&quot; &quot;--service&quot; &quot;gitlab-runner&quot;  &quot;--syslog&quot;&quot;</span><br><span class="line">lockfile=/home/root/.gitlab-runner/$name</span><br><span class="line">pidfile=/home/root/.gitlab-runner/$name.pid</span><br><span class="line"></span><br><span class="line"># Source networking configuration.</span><br><span class="line">[ -r /etc/sysconfig/$name ] &amp;&amp; . /etc/sysconfig/$name</span><br><span class="line"></span><br><span class="line">start() &#123;</span><br><span class="line">    echo -n $&quot;Starting $desc: &quot;</span><br><span class="line">    daemon \</span><br><span class="line">         \</span><br><span class="line">         \</span><br><span class="line">        &quot;$cmd $args &lt;/dev/null &gt;/dev/null 2&gt;/dev/null &amp; echo \$! &gt; $pidfile&quot;</span><br><span class="line">    retval=$?</span><br><span class="line">    [ $retval -eq 0 ] &amp;&amp; touch $lockfile</span><br><span class="line">    echo</span><br><span class="line">    return $retval</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">stop() &#123;</span><br><span class="line">    echo -n $&quot;Stopping $desc: &quot;</span><br><span class="line">    killproc -p $pidfile $cmd -TERM</span><br><span class="line">    retval=$?</span><br><span class="line">    [ $retval -eq 0 ] &amp;&amp; rm -f $lockfile</span><br><span class="line">    rm -f $pidfile</span><br><span class="line">    echo</span><br><span class="line">    return $retval</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">restart() &#123;</span><br><span class="line">    stop</span><br><span class="line">    start</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">reload() &#123;</span><br><span class="line">    echo -n $&quot;Reloading $desc: &quot;</span><br><span class="line">    killproc -p $pidfile $cmd -HUP</span><br><span class="line">    RETVAL=$?</span><br><span class="line">    echo</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">force_reload() &#123;</span><br><span class="line">    restart</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">rh_status() &#123;</span><br><span class="line">    status -p $pidfile $cmd</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">rh_status_q() &#123;</span><br><span class="line">    rh_status &gt;/dev/null 2&gt;&amp;1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">case &quot;$1&quot; in</span><br><span class="line">    start)</span><br><span class="line">        rh_status_q &amp;&amp; exit 0</span><br><span class="line">        $1</span><br><span class="line">        ;;</span><br><span class="line">    stop)</span><br><span class="line">        rh_status_q || exit 0</span><br><span class="line">        $1</span><br><span class="line">        ;;</span><br><span class="line">    restart)</span><br><span class="line">        $1</span><br><span class="line">        ;;</span><br><span class="line">    reload)</span><br><span class="line">        rh_status_q || exit 7</span><br><span class="line">        $1</span><br><span class="line">        ;;</span><br><span class="line">    force-reload)</span><br><span class="line">        force_reload</span><br><span class="line">        ;;</span><br><span class="line">    status)</span><br><span class="line">        rh_status</span><br><span class="line">        ;;</span><br><span class="line">    condrestart|try-restart)</span><br><span class="line">        rh_status_q || exit 0</span><br><span class="line">        ;;</span><br><span class="line">    *)</span><br><span class="line">        echo $&quot;Usage: $0 &#123;start|stop|status|restart|condrestart|try-restart|reload|force-reload&#125;&quot;</span><br><span class="line">        exit 2</span><br><span class="line">esac</span><br></pre></td></tr></table></figure></p><p>然后我们使用这个脚本进行启动。</p><p>最终gitlab-ci搭建完毕。</p><p>然后gitlab-ci的使用，我们后面讲解下。</p><h2 id="三、总结"><a href="#三、总结" class="headerlink" title="三、总结"></a>三、总结</h2><p>jenkins的流程，用了不少时间了，关于工程化个人也是比较熟练了。然后本次呢主要想要更快更敏捷的开发，同时在ci的流程中比如将部署还能选择预发布和线上这种区分，所以很方便，虽然放到阿里云服务器，带来的是上传代码变慢，这个总能解决。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;一、简介&quot;&gt;&lt;a href=&quot;#一、简介&quot; class=&quot;headerlink&quot; title=&quot;一、简介&quot;&gt;&lt;/a&gt;一、简介&lt;/h2&gt;&lt;p&gt;本地我自己肯定是搭建了自己的gitlab仓库的。这次主要是出于gitlab-ci的考虑，想要在把原本自己的ci流程，从本地的
+      
+    
+    </summary>
+    
+      <category term="工程化" scheme="http://blog.fedfans.com/categories/%E5%B7%A5%E7%A8%8B%E5%8C%96/"/>
+    
+    
+      <category term="Gitlab" scheme="http://blog.fedfans.com/tags/Gitlab/"/>
+    
+      <category term="工程化" scheme="http://blog.fedfans.com/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>关于let sencrypt过期的问题处理</title>
+    <link href="http://blog.fedfans.com//page/article/38/"/>
+    <id>http://blog.fedfans.com//page/article/38/</id>
+    <published>2018-06-25T15:46:44.000Z</published>
+    <updated>2018-08-31T14:57:03.594Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="一、问题介绍"><a href="#一、问题介绍" class="headerlink" title="一、问题介绍"></a>一、问题介绍</h2><p>由于当前站点的https采用的是let sencrpt，let sencrpt是每90天需要认证一下，然后最近发现我的https过期了，然后在服务器上面执行我的续期脚本，也报错了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./letsencrypt-auto certonly --renew-by-default --email hzjinbing@163.com -d www.520stone.com</span><br></pre></td></tr></table></figure></p><p>然后报错内容如下：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">Saving debug log to /var/log/letsencrypt/letsencrypt.log</span><br><span class="line"></span><br><span class="line">How would you like to authenticate with the ACME CA?</span><br><span class="line">-------------------------------------------------------------------------------</span><br><span class="line">1: Apache Web Server plugin - Beta (apache)</span><br><span class="line">2: Nginx Web Server plugin - Alpha (nginx)</span><br><span class="line">3: Spin up a temporary webserver (standalone)</span><br><span class="line">4: Place files in webroot directory (webroot)</span><br><span class="line">-------------------------------------------------------------------------------</span><br><span class="line">Select the appropriate number [1-4] then [enter] (press &apos;c&apos; to cancel): 2</span><br><span class="line">Plugins selected: Authenticator nginx, Installer None</span><br><span class="line">Renewing an existing certificate</span><br><span class="line">Performing the following challenges:</span><br><span class="line">tls-sni-01 challenge for www.520stone.com</span><br><span class="line">Waiting for verification...</span><br><span class="line">Cleaning up challenges</span><br><span class="line">Failed authorization procedure. www.520stone.com (tls-sni-01): urn:acme:error:unauthorized :: The client lacks sufficient authorization :: Incorrect validation certificate for tls-sni-01 challenge. Requested 8b01252f05bfcb35a2d586933f89613e.d6b3afaf871b282ab64f7c74c0886f2f.acme.invalid from 139.196.95.206:443. Received 2 certificate(s), first certificate had names &quot;www.520stone.com&quot;</span><br><span class="line"></span><br><span class="line">IMPORTANT NOTES:</span><br><span class="line"> - The following errors were reported by the server:</span><br><span class="line"></span><br><span class="line">   Domain: www.520stone.com</span><br><span class="line">   Type:   unauthorized</span><br><span class="line">   Detail: Incorrect validation certificate for tls-sni-01 challenge.</span><br><span class="line">   Requested</span><br><span class="line">   8b01252f05bfcb35a2d586933f89613e.d6b3afaf871b282ab64f7c74c0886f2f.acme.invalid</span><br><span class="line">   from 139.196.95.206:443. Received 2 certificate(s), first</span><br><span class="line">   certificate had names &quot;www.520stone.com&quot;</span><br><span class="line"></span><br><span class="line">   To fix these errors, please make sure that your domain name was</span><br><span class="line">   entered correctly and the DNS A/AAAA record(s) for that domain</span><br><span class="line">   contain(s) the right IP address.</span><br></pre></td></tr></table></figure><p>所以报错已经在这边了，我们就需要解决他，否则当前博客本来好不容易积累的每天的dau就降下来了。</p><h2 id="二、问题原因"><a href="#二、问题原因" class="headerlink" title="二、问题原因"></a>二、问题原因</h2><p>当前还未解决，最近记录下这个解决过程。</p><p>最终阿里云服务器上面过了几天后，我使用下面这个代码最终续期成功了。先记录下这个脚本。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">../code/letsencrypt/letsencrypt-auto certonly --renew-by-default --email hzjinbing@163.com -d www.520stone.com</span><br></pre></td></tr></table></figure><p>然后最终我是使用nginx，所以中间有一个项，选择2是nginx，然后回车后最终续期成功了。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;一、问题介绍&quot;&gt;&lt;a href=&quot;#一、问题介绍&quot; class=&quot;headerlink&quot; title=&quot;一、问题介绍&quot;&gt;&lt;/a&gt;一、问题介绍&lt;/h2&gt;&lt;p&gt;由于当前站点的https采用的是let sencrpt，let sencrpt是每90天需要认证一下，然后最
+      
+    
+    </summary>
+    
+      <category term="服务器配置" scheme="http://blog.fedfans.com/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE/"/>
+    
+    
+      <category term="服务器" scheme="http://blog.fedfans.com/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
+    
+      <category term="环境配置" scheme="http://blog.fedfans.com/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>（maven系列）编写第一个maven插件</title>
+    <link href="http://blog.fedfans.com//page/article/37/"/>
+    <id>http://blog.fedfans.com//page/article/37/</id>
+    <published>2018-06-13T12:37:13.000Z</published>
+    <updated>2018-08-31T15:06:04.457Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="一、背景"><a href="#一、背景" class="headerlink" title="一、背景"></a>一、背景</h2><p>最近在做接口管理平台的事情，接口管理平台的方案，采用后端java项目集成swagger，然后将swagger离线化部署到接口管理平台上。然后前端在这个平台上，可以查看后端定义的接口，同时平台上提供对应的mock数据，还可以根据这个接口生成前端的sdk，不需要再去关心ajax那块。当后端接口变动的时候，我们只需要生成新的前端的SDK。</p><p>然后问题是，为了能让后端项目不需要改动，想法：如果到了class级别肯定已经无法获取到其中的javadoc的注释了，那想的时候，就是要么做一个maven的plugin，要么做一个intellij的插件。所以本文先做技术积累，做一个maven的插件试试。</p><h2 id="二、maven插件开发入门"><a href="#二、maven插件开发入门" class="headerlink" title="二、maven插件开发入门"></a>二、maven插件开发入门</h2><p>第一步：</p><p>通过intellij idea新建一个maven工程</p><p>第二步：</p><p>修改pom.xml文件，将packaging设置为maven-plugin</p><p>第三步：</p><p>我们平常执行的mvn <strong>*</strong>的操作，我们其实在执行Mojo，</p><p>所以我们新建我们第一个MoJo，</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@goal</span> buildinfo</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@phase</span>  pre-integration-test</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BuildInfoMojo</span> <span class="keyword">extends</span> <span class="title">AbstractMojo</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@parameter</span> expression="$&#123;project&#125;"</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@readonly</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> MavenProject mavenProject;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@parameter</span> expression="$&#123;buildinfo.prefix&#125;"</span></span><br><span class="line"><span class="comment">     * default-value="+++"</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String prefix;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">execute</span><span class="params">()</span> <span class="keyword">throws</span> MojoExecutionException, MojoFailureException </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>然后实现其中接口类里面的execute函数，此处我们打印一下我们执行mvn时候，代码路径和输出的路径，和测试代码路径和测试结果输出的路径：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">execute</span><span class="params">()</span> <span class="keyword">throws</span> MojoExecutionException, MojoFailureException </span>&#123;</span><br><span class="line">    Build build = mavenProject.getBuild();</span><br><span class="line">    String outputDirectory = build.getOutputDirectory();</span><br><span class="line">    String sourceDirectory = build.getSourceDirectory();</span><br><span class="line">    String testOutputDirectory = build.getTestOutputDirectory();</span><br><span class="line">    String testSourceDirectory = build.getTestSourceDirectory();</span><br><span class="line">    getLog().info(<span class="string">"\n==============\n Project build info."</span>);</span><br><span class="line"></span><br><span class="line">    String[] info = &#123;outputDirectory, sourceDirectory, testOutputDirectory, testSourceDirectory&#125;;</span><br><span class="line">    <span class="keyword">for</span>(String item: info)&#123;</span><br><span class="line">        getLog().info(<span class="string">"\t"</span>  + <span class="string">"   "</span> + item);</span><br><span class="line">    &#125;</span><br><span class="line">    getLog().info(<span class="string">"============="</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><p>然后编写完毕后，我们本地通过mvn clean install安装到本地的maven环境中。</p><p>然后就此我们已经编写完一个最简单的maven插件了。</p><p>第四步：测试下我们的插件：</p><p>通过执行mvn {groupId}:{artifactId}:{version}:buildinfo</p><p>最终我们可以看到下面这样的效果：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">[INFO] Scanning <span class="keyword">for</span> projects...</span><br><span class="line">[INFO] </span><br><span class="line">[INFO] ------------------------------------------------------------------------</span><br><span class="line">[INFO] Building demo-maven-plugin <span class="number">1.0</span>-SNAPSHOT</span><br><span class="line">[INFO] ------------------------------------------------------------------------</span><br><span class="line">[INFO] </span><br><span class="line">[INFO] --- demo-maven-plugin:<span class="number">1.0</span>-SNAPSHOT:buildinfo (<span class="keyword">default</span>-cli) @ demo-maven-plugin ---</span><br><span class="line">[INFO] </span><br><span class="line">==============</span><br><span class="line"> Project build info.</span><br><span class="line">[INFO]     /Users/stone-jin/code/local/java/demo-maven-plugin/target/classes</span><br><span class="line">[INFO]     /Users/stone-jin/code/local/java/demo-maven-plugin/src/main/java</span><br><span class="line">[INFO]     /Users/stone-jin/code/local/java/demo-maven-plugin/target/test-classes</span><br><span class="line">[INFO]     /Users/stone-jin/code/local/java/demo-maven-plugin/src/test/java</span><br><span class="line">[INFO] =============</span><br><span class="line">[INFO] ------------------------------------------------------------------------</span><br><span class="line">[INFO] BUILD SUCCESS</span><br><span class="line">[INFO] ------------------------------------------------------------------------</span><br><span class="line">[INFO] Total time: <span class="number">0.488</span> s</span><br><span class="line">[INFO] Finished at: <span class="number">2018</span>-<span class="number">06</span>-<span class="number">13</span>T20:<span class="number">13</span>:<span class="number">55</span>+<span class="number">08</span>:<span class="number">00</span></span><br><span class="line">[INFO] Final Memory: <span class="number">9</span>M/<span class="number">245</span>M</span><br><span class="line">[INFO] ------------------------------------------------------------------------</span><br></pre></td></tr></table></figure><p>就此我们第一个maven插件书写完毕</p><p>然后我们再将我们的maven插件发布到maven仓库中，这个发布，可以通过查看：<a href="https://www.520stone.com/page/article/34" target="_blank" rel="noopener">https://www.520stone.com/page/article/34</a></p><p>最后我们新建一个springboot的工程测试下：</p><p>放在pom包里面的build里面的plugins里面</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;plugin&gt;</span><br><span class="line">   &lt;groupId&gt;com.netease.mail&lt;/groupId&gt;</span><br><span class="line">   &lt;artifactId&gt;demo-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">   &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;</span><br><span class="line">&lt;/plugin&gt;</span><br></pre></td></tr></table></figure><p>然后我们再执行下我们的maven的操作，完美可以运行</p><p>同时我们可以在intellij idea右边有个maven project中，里面有个plugins可以看到我们写的buildinfo的插件在那里。</p><p>三、结束语<br>最近好久没有写文章，哈哈哈，写起来~</p><p>这个代码放在：<a href="https://github.com/stone-jin/demo-maven-plugins" target="_blank" rel="noopener">https://github.com/stone-jin/demo-maven-plugins</a> 上了。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;一、背景&quot;&gt;&lt;a href=&quot;#一、背景&quot; class=&quot;headerlink&quot; title=&quot;一、背景&quot;&gt;&lt;/a&gt;一、背景&lt;/h2&gt;&lt;p&gt;最近在做接口管理平台的事情，接口管理平台的方案，采用后端java项目集成swagger，然后将swagger离线化部署到接口
+      
+    
+    </summary>
+    
+      <category term="后端" scheme="http://blog.fedfans.com/categories/%E5%90%8E%E7%AB%AF/"/>
+    
+    
+      <category term="JAVA" scheme="http://blog.fedfans.com/tags/JAVA/"/>
+    
+      <category term="MAVEN" scheme="http://blog.fedfans.com/tags/MAVEN/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Maven项目指定仓库地址</title>
+    <link href="http://blog.fedfans.com//page/article/36/"/>
+    <id>http://blog.fedfans.com//page/article/36/</id>
+    <published>2018-05-16T02:55:47.000Z</published>
+    <updated>2018-08-31T15:09:03.950Z</updated>
+    
+    <content type="html"><![CDATA[<p>项目中，我们会遇到maven项目，从阿里的maven仓库下载加速我们的，当然可能出现比如下载springboot，springcloud比较新的版本无法下载的问题，还有有些私有包发布在我们的私有maven仓库中。</p><p>这个时候我们应该怎么做呢？</p><p>在pom.xml中指定repository的地址</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;repositories&gt;</span><br><span class="line">    &lt;repository&gt;</span><br><span class="line">        &lt;id&gt;maven&lt;/id&gt;</span><br><span class="line">        &lt;name&gt;Official Maven Repository&lt;/name&gt;</span><br><span class="line">        &lt;url&gt;http://repo1.maven.org/maven2&lt;/url&gt;</span><br><span class="line">    &lt;/repository&gt;</span><br><span class="line">&lt;/repositories&gt;</span><br><span class="line">&lt;repositories&gt;</span><br><span class="line">    &lt;repository&gt;</span><br><span class="line">        &lt;id&gt;spring-milestones&lt;/id&gt;</span><br><span class="line">        &lt;name&gt;Spring Milestones&lt;/name&gt;</span><br><span class="line">        &lt;url&gt;https://repo.spring.io/libs-milestone&lt;/url&gt;</span><br><span class="line">        &lt;snapshots&gt;</span><br><span class="line">            &lt;enabled&gt;false&lt;/enabled&gt;</span><br><span class="line">        &lt;/snapshots&gt;</span><br><span class="line">    &lt;/repository&gt;</span><br><span class="line">&lt;/repositories&gt;</span><br></pre></td></tr></table></figure><p>然后我们就又可以下载对应的包了。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;项目中，我们会遇到maven项目，从阿里的maven仓库下载加速我们的，当然可能出现比如下载springboot，springcloud比较新的版本无法下载的问题，还有有些私有包发布在我们的私有maven仓库中。&lt;/p&gt;
+&lt;p&gt;这个时候我们应该怎么做呢？&lt;/p&gt;
+&lt;p&gt;在p
+      
+    
+    </summary>
+    
+      <category term="后端" scheme="http://blog.fedfans.com/categories/%E5%90%8E%E7%AB%AF/"/>
+    
+    
+      <category term="JAVA" scheme="http://blog.fedfans.com/tags/JAVA/"/>
+    
+      <category term="MAVEN" scheme="http://blog.fedfans.com/tags/MAVEN/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>搭建maven的私有仓库</title>
+    <link href="http://blog.fedfans.com//page/article/35/"/>
+    <id>http://blog.fedfans.com//page/article/35/</id>
+    <published>2018-05-14T12:06:36.000Z</published>
+    <updated>2018-08-31T15:13:36.940Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="一、介绍"><a href="#一、介绍" class="headerlink" title="一、介绍"></a>一、介绍</h2><p>随着工作年限的增长，个人用过python的pip仓库，前端的npm仓库，java的pom仓库。也体验过没有中心仓库管理的，C++类似下载一个tar.gz包，然后获取头文件和lib或者so，进行调用第三方库。感想就是，使用这些库是多么的方便，能高效的提升我们的开发效率。所以本文就来搭建一个maven仓库，并且来发布我们的第一个pom包。</p><h2 id="二、搭建"><a href="#二、搭建" class="headerlink" title="二、搭建"></a>二、搭建</h2><p>这年头使用docker是多么的方便，所以我们自然而言，想的是搜索下能不能使用docker来搭建我们的maven仓库。搜索后，我们找到sonatype/nexus。</p><p>最终我们找到资料：<a href="https://hub.docker.com/r/sonatype/nexus/" target="_blank" rel="noopener">https://hub.docker.com/r/sonatype/nexus/</a></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 8081:8081 --name nexus sonatype/nexus:oss</span><br></pre></td></tr></table></figure><p>然后我们装完后，访问网页看看能不能访问了：</p><p>打开网址：<a href="http://localhost:8081/nexus/#welcome" target="_blank" rel="noopener">http://localhost:8081/nexus/#welcome</a></p><p>然后我们能看到下面的效果：</p><p><img src="https://520stone-blog.oss-cn-beijing.aliyuncs.com/upload/2018-05-14T12:02:48Z/688b1d8e-6e60-4dce-8cb7-8ea09899fcd8.png" alt=""></p><p>然后我们点击右上角的登录，使用一下默认的账号试一下：admin/admin123</p><p>然后发包过程，看我上一篇的文章</p><p><a href="https://www.520stone.com/page/article/34" target="_blank" rel="noopener">《maven发布项目到私服-snapshot快照库和release发布库的区别和作用及maven常用命令》</a></p><p>三、总结<br>搭建了自己的maven仓库，并将自己的代码复用后，极大的提升了自己的代码复用，同时做的基础组件能提供给组里或者部门的其他同事使用。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;一、介绍&quot;&gt;&lt;a href=&quot;#一、介绍&quot; class=&quot;headerlink&quot; title=&quot;一、介绍&quot;&gt;&lt;/a&gt;一、介绍&lt;/h2&gt;&lt;p&gt;随着工作年限的增长，个人用过python的pip仓库，前端的npm仓库，java的pom仓库。也体验过没有中心仓库管理的，C
+      
+    
+    </summary>
+    
+      <category term="后端" scheme="http://blog.fedfans.com/categories/%E5%90%8E%E7%AB%AF/"/>
+    
+    
+      <category term="JAVA" scheme="http://blog.fedfans.com/tags/JAVA/"/>
+    
+      <category term="MAVEN" scheme="http://blog.fedfans.com/tags/MAVEN/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>maven发布项目到私服-snapshot快照库和release发布库的区别和作用及maven常用命令</title>
+    <link href="http://blog.fedfans.com//page/article/34/"/>
+    <id>http://blog.fedfans.com//page/article/34/</id>
+    <published>2018-05-14T12:06:36.000Z</published>
+    <updated>2018-08-31T15:25:17.799Z</updated>
+    
+    <content type="html"><![CDATA[<p>在日常的工作中由于各种原因，会发生这样一种情况，某些项目并没有打包至mvnrepository。如果采用直接打包放到lib目录的方式进行处理，便对项目的管理带来一些不必要的麻烦。例如版本升级后需要重新打包并替换原有jar包等等一些额外的工作量和麻烦。为了避免这些不必要的麻烦，通常我们会通过Nexus搭建私有的仓库。下面着重介绍下怎么通过mvn命令将程序打包并发布到私有仓库Nexus中。</p><p>前提：</p><p>1.已成功安装maven</p><p>2.已成功安装Nexus（管理账号：admin，密码：admin123，搭建方式我写了一篇文章：<a href="https://www.520stone.com/page/article/35" target="_blank" rel="noopener">https://www.520stone.com/page/article/35</a>）</p><p>3.项目通过maven进行管理</p><p>maven安装目录下setting.xml中添加如下配置：</p><p>servers节点中添加：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;server&gt;</span><br><span class="line">    &lt;id&gt;releases&lt;/id&gt;</span><br><span class="line">    &lt;username&gt;admin&lt;/username&gt;</span><br><span class="line">    &lt;password&gt;admin123&lt;/password&gt;</span><br><span class="line">&lt;/server&gt;</span><br><span class="line">&lt;server&gt;</span><br><span class="line">    &lt;id&gt;snapshots&lt;/id&gt;</span><br><span class="line">    &lt;username&gt;admin&lt;/username&gt;</span><br><span class="line">    &lt;password&gt;admin123&lt;/password&gt;</span><br><span class="line">&lt;/server&gt;</span><br></pre></td></tr></table></figure><p>注意：如果非admin用户，需要在Nexus中对相应的账号设置密码</p><p>1.打开安全设置：<a href="http://localhost:8081/nexus/#security-users" target="_blank" rel="noopener">http://localhost:8081/nexus/#security-users</a></p><p>2.选择相应的用户–》右键–》reset password/set password –》进行密码设置</p><p>3.相应的仓库允许重复发布（Repository–》选择对应的仓库–》Configuration–》Deployment Policy下拉选项中选择“Allow Redeoploy”），如果不允许重复发布，重复发布时会出现401等异常情况。</p><p>项目下pom.xml中添加如下内容：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 项目发布管理 --&gt;</span><br><span class="line">&lt;distributionManagement&gt;</span><br><span class="line">  &lt;repository&gt;</span><br><span class="line">    &lt;id&gt;releases&lt;/id&gt;</span><br><span class="line">    &lt;name&gt;User Project Release&lt;/name&gt;</span><br><span class="line">    &lt;url&gt;http://127.0.0.1:8081/nexus/content/repositories/releases/&lt;/url&gt;</span><br><span class="line">  &lt;/repository&gt;</span><br><span class="line"></span><br><span class="line">  &lt;snapshotRepository&gt;</span><br><span class="line">    &lt;id&gt;snapshots&lt;/id&gt;</span><br><span class="line">    &lt;name&gt;User Project SNAPSHOTS&lt;/name&gt;</span><br><span class="line">    &lt;url&gt;http://127.0.0.1:8081/nexus/content/repositories/snapshots/&lt;/url&gt;</span><br><span class="line">  &lt;/snapshotRepository&gt;</span><br><span class="line">&lt;/distributionManagement&gt;</span><br></pre></td></tr></table></figure><p>发布到私服</p><p>切换到项目根目录后运行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">mvn clean deploy -X -Dmaven.test.skip=true</span><br><span class="line">```即可。如果发布成功会出现BUILD SUCCESS的字样。查看仓库http://127.0.0.1:8081/nexus/content/repositories/releases/已经包含了相应的包。</span><br><span class="line"></span><br><span class="line">注意：</span><br><span class="line"></span><br><span class="line">如果想发布到snapshot仓库中，则需要在版本号后加上—SNAPSHOT（注意这里必须是大写）</span><br><span class="line"></span><br><span class="line">如：</span><br><span class="line"></span><br><span class="line">```text</span><br><span class="line">&lt;groupId&gt;cc.mzone&lt;/groupId&gt;</span><br><span class="line">&lt;artifactId&gt;m1&lt;/artifactId&gt;</span><br><span class="line">&lt;version&gt;0.1-SNAPSHOT&lt;/version&gt;</span><br><span class="line">&lt;packaging&gt;jar&lt;/packaging&gt;</span><br></pre></td></tr></table></figure></p><p>maven中snapshot快照库和release发布库的区别和作用</p><p>在使用maven过程中，我们在开发阶段经常性的会有很多公共库处于不稳定状态，随时需要修改并发布，可能一天就要发布一天，遇到bug时，甚至一天要发布N此。我们知道，maven的依赖管理是基于版本管理的，对于发布状态的artifact，如果版本号相同，即使我们内部的镜像服务器上的组件比本地新，maven也不会主动下载的。如果我们在开发阶段都是基于正式发布版本来做依赖版本，name遇到这个问题，就需要升级组件的版本号，可这样就明显不符合要求和实际情况了。但是，如果是基于快照版本，name问题就自然而然的解决了，而maven已经为我们准备好了这一切。</p><p>maven中的仓库分为两种，snapshot快照仓库和release发布仓库。snapshot快照仓库用于保存开发过程中的不稳定版本，release正式仓库则是用来保存稳定的发布版本。定义一个组件/模块为快照版本，只需要在pom文件中在该模块的版本号后加上 -SNAPSHOT即可（注意这里必须是大写），如下：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;groupId&gt;cc.mzone&lt;/groupId&gt;</span><br><span class="line">&lt;artifactId&gt;m1&lt;/artifactId&gt;</span><br><span class="line">&lt;version&gt;0.1-SNAPSHOT&lt;/version&gt;</span><br><span class="line">&lt;packaging&gt;jar&lt;/packaging&gt;</span><br></pre></td></tr></table></figure><p>maven2会根据模块的版本号（pom文件中的maven）中是否带有-SNAPSHOT来判断是否是快照版本还是正式版本。如果是快照版本，name在mvn deploy时会自动发布到快照版本库中，二使用快照版本的模块，在不更改版本的情况下，直接编译打包时，maven会自动从镜像仓库服务器上下载最新的快照版本。如果是正式发布版本，name在mvn deploy时会自动发布到正式版本库中，二使用正式版本的模块，在不更改版本的情况下，编译打包时如果已经存在该版本的模块则不会主动去镜像服务器上下载。</p><p>jar包发布到指定仓库</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn deploy:deploy-file -DgroupId=com.xy.oracle -DartifactId=ojdbc14 -Dversion=10.2.0.4.0 -Dpackaging=jar -Dfile=E:\ojdbc14.jar -Durl=http://127.0.0.1:8081/nexus/content/repositories/thirdparty/ -DrepositoryId=thirdparty</span><br></pre></td></tr></table></figure><p>jar包发布到本地缓存仓库</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn clean install</span><br></pre></td></tr></table></figure><p>注意：</p><ol><li>如果出现400，需要注意项目下的pom.xml文件和maven使用的setting.xml文件的配置是否一致。</li><li>如果出现401，需要检查maven使用的setting.xml中的账号和密码是否正确，相应的repository是否为ALLow redeploy</li><li>如果使用的intellij，eclipse或myeclipse需要注意ide中使用的setting.xml和maven命令行下的setting.xml是否一致；否则会出现许多莫名其妙的问题。</li></ol><p>原文地址：<a href="https://www.cnblogs.com/rwxwsblog/p/6029636.html" target="_blank" rel="noopener">https://www.cnblogs.com/rwxwsblog/p/6029636.html</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;在日常的工作中由于各种原因，会发生这样一种情况，某些项目并没有打包至mvnrepository。如果采用直接打包放到lib目录的方式进行处理，便对项目的管理带来一些不必要的麻烦。例如版本升级后需要重新打包并替换原有jar包等等一些额外的工作量和麻烦。为了避免这些不必要的麻烦
+      
+    
+    </summary>
+    
+      <category term="后端" scheme="http://blog.fedfans.com/categories/%E5%90%8E%E7%AB%AF/"/>
+    
+    
+      <category term="JAVA" scheme="http://blog.fedfans.com/tags/JAVA/"/>
+    
+      <category term="MAVEN" scheme="http://blog.fedfans.com/tags/MAVEN/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>(一）你需要一个知乎一样的反馈功能吗？</title>
+    <link href="http://blog.fedfans.com//page/article/33/"/>
+    <id>http://blog.fedfans.com//page/article/33/</id>
+    <published>2018-05-06T05:02:02.000Z</published>
+    <updated>2018-09-04T12:07:37.519Z</updated>
+    
+    <content type="html"><![CDATA[<p>大家都知道每个系统都不可能是没有问题的，那么当用户使用的时候，我们现在的处理方式有哪些呢？</p><p>1、这个问题刚好在后端接口级别，那一般我们后端代码中，比如本博客中也有很多讲解，就是使用springboot全局的errorhandler（@ControllerAdvice + @ExceptionHandler）来进行捕获，并发送邮件给开发。</p><p>2、这个问题在前端的javascript层，那我们一般通过前端的异常监控系统，将前端的error，上报到前端异常监控系统来让开发定位。</p><p>3、样式移动了，功能不对？那这个怎么办呢？</p><p>本文针对第三种情况，引出我们需要做一个知乎一样的反馈功能。</p><p>知乎的反馈功能体验：<a href="https://www.zhihu.com" target="_blank" rel="noopener">https://www.zhihu.com</a>, 在右下角的位置</p><h2 id="一、分析"><a href="#一、分析" class="headerlink" title="一、分析"></a>一、分析</h2><p>我们看下面的截图，主要是点击反馈，弹出一个模态框，然后这个模态框，会针对当前的屏幕进行截图，然后我们同时可以针对截图的图片，进行标注，比如圈起来有bug的地方。如下图：</p><p><img src="https://520stone-blog.oss-cn-beijing.aliyuncs.com/upload/2018-05-06T03:18:58Z/03c545b9-bc13-45d3-9f22-731b91dd9b90.png" alt=""></p><p><img src="https://520stone-blog.oss-cn-beijing.aliyuncs.com/upload/2018-05-06T03:21:45Z/4f791da5-5946-453d-a401-a02756476a77.png" alt=""></p><p>我们看了功能大概如此了，那我们要解决的技术问题，模态框和输入框（就不介绍了）</p><p>主要介绍我们的大头：就是那个截取当前用户访问的屏幕，同时支持能圈起来的功能</p><h2 id="二、原理"><a href="#二、原理" class="headerlink" title="二、原理"></a>二、原理</h2><p>大概就是如何将dom元素变成对应的图片，然后针对图片能做图片的标记。</p><p>这个时候，我们首先想到有没有类似的库，能解决我们的问题，搜索后，在npmjs.com网站上，找到了dom-to-image 这个库，大概就是能将dom元素变成canvas</p><p>然后下一步对于图片的标记，我们原本知识就是在canvas上进行最简单的操作，也就是我们的图片标记功能。</p><h2 id="三、实战"><a href="#三、实战" class="headerlink" title="三、实战"></a>三、实战</h2><p>本地我建一个demo的功能，总体建一个index.html和app.js文件即可，然后打包工具，也不想太复杂，直接使用parcel即可。</p><p>所以第一步：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir feedback</span><br><span class="line">cd feedback</span><br></pre></td></tr></table></figure><p>第二步：执行npm init和安装对应的dom-to-image的包:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm init</span><br><span class="line">npm i dom-to-image --save-dev</span><br></pre></td></tr></table></figure><p>第三步：新建一个index.html和app.js</p><p>index.html:</p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"ie=edge"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>反馈功能测试<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>登鹳雀楼<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>唐代：王之涣<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>白日依山尽，黄河入海流。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>欲穷千里目，更上一层楼。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"feedback"</span>&gt;</span>反馈<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">canvas</span> <span class="attr">id</span>=<span class="string">"csv"</span>&gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"./app.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure><p>app.js:</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> domtoimage <span class="keyword">from</span> <span class="string">'dom-to-image'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 监听对应的反馈按钮的事件 */</span></span><br><span class="line"><span class="built_in">document</span></span><br><span class="line">  .getElementById (<span class="string">'feedback'</span>)</span><br><span class="line">  .addEventListener (<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> node = <span class="built_in">document</span>.getElementsByTagName (<span class="string">'body'</span>)[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">var</span> csv = <span class="built_in">document</span>.getElementById (<span class="string">'csv'</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> pos = &#123;</span><br><span class="line">      x: <span class="number">0</span>,</span><br><span class="line">      y: <span class="number">0</span>,</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">var</span> ctx = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">    domtoimage</span><br><span class="line">      .toPng (node)</span><br><span class="line">      .then (<span class="function"><span class="keyword">function</span> (<span class="params">dataUrl</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> img = <span class="keyword">new</span> Image ();</span><br><span class="line">        img.src = dataUrl;</span><br><span class="line">        img.onload = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">          ctx = csv.getContext (<span class="string">'2d'</span>);</span><br><span class="line">          csv.width = <span class="built_in">document</span></span><br><span class="line">            .getElementsByTagName (<span class="string">'body'</span>)[<span class="number">0</span>]</span><br><span class="line">            .getBoundingClientRect ().width;</span><br><span class="line">          csv.height = <span class="built_in">document</span></span><br><span class="line">            .getElementsByTagName (<span class="string">'body'</span>)[<span class="number">0</span>]</span><br><span class="line">            .getBoundingClientRect ().height;</span><br><span class="line">          ctx.drawImage (img, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">        &#125;;</span><br><span class="line">      &#125;)</span><br><span class="line">      .catch (<span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.error (<span class="string">'oops, something went wrong!'</span>, error);</span><br><span class="line">      &#125;);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure><p>然后我们使用parcel来运行我们的代码：（这个是一个类似webpack的打包一样的工具）</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">parcel index.html</span><br></pre></td></tr></table></figure><p>然后console里面会提示我们打开网站：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Building...</span><br><span class="line">Server running at http://localhost:1234</span><br><span class="line">Built in 8ms.</span><br></pre></td></tr></table></figure></p><p>然后我们打开网站 <a href="http://localhost:1234，看到下面的图：" target="_blank" rel="noopener">http://localhost:1234，看到下面的图：</a></p><p><img src="https://520stone-blog.oss-cn-beijing.aliyuncs.com/upload/2018-05-06T03:40:13Z/47527cac-fb58-4951-8c80-749bffb4e129.png" alt=""></p><p><img src="https://520stone-blog.oss-cn-beijing.aliyuncs.com/upload/2018-05-06T03:41:34Z/b8379f22-96e8-4323-8f5d-52205cc6fce3.png" alt=""></p><p>这时候，我们基本截图的功能就好了，然后我们再实现绘画的功能：</p><p>绘图基本就是canvas的代码，我们主要监听几个事件：mousemove, mousedown, mouseenter，这三个事件。</p><p>代码最终修改后如下：</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> domtoimage <span class="keyword">from</span> <span class="string">'dom-to-image'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 监听对应的反馈按钮的事件 */</span></span><br><span class="line"><span class="built_in">document</span></span><br><span class="line">  .getElementById (<span class="string">'feedback'</span>)</span><br><span class="line">  .addEventListener (<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> node = <span class="built_in">document</span>.getElementsByTagName (<span class="string">'body'</span>)[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">var</span> csv = <span class="built_in">document</span>.getElementById (<span class="string">'csv'</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> pos = &#123;</span><br><span class="line">      x: <span class="number">0</span>,</span><br><span class="line">      y: <span class="number">0</span>,</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">var</span> ctx = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">draw</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (e.buttons !== <span class="number">1</span>) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">      ctx.beginPath ();</span><br><span class="line"></span><br><span class="line">      ctx.lineWidth = <span class="number">5</span>;</span><br><span class="line">      ctx.lineCap = <span class="string">'round'</span>;</span><br><span class="line">      ctx.strokeStyle = <span class="string">'red'</span>;</span><br><span class="line"></span><br><span class="line">      ctx.moveTo (pos.x, pos.y); <span class="comment">// from</span></span><br><span class="line">      setPosition (e);</span><br><span class="line">      ctx.lineTo (pos.x, pos.y); <span class="comment">// to</span></span><br><span class="line"></span><br><span class="line">      ctx.stroke (); <span class="comment">// draw it!</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">setPosition</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">      pos.x = e.clientX - csv.getBoundingClientRect ().left;</span><br><span class="line">      pos.y = e.clientY - csv.getBoundingClientRect ().top;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    domtoimage</span><br><span class="line">      .toPng (node)</span><br><span class="line">      .then (<span class="function"><span class="keyword">function</span> (<span class="params">dataUrl</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> img = <span class="keyword">new</span> Image ();</span><br><span class="line">        img.src = dataUrl;</span><br><span class="line">        img.onload = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">          ctx = csv.getContext (<span class="string">'2d'</span>);</span><br><span class="line">          csv.width = <span class="built_in">document</span></span><br><span class="line">            .getElementsByTagName (<span class="string">'body'</span>)[<span class="number">0</span>]</span><br><span class="line">            .getBoundingClientRect ().width;</span><br><span class="line">          csv.height = <span class="built_in">document</span></span><br><span class="line">            .getElementsByTagName (<span class="string">'body'</span>)[<span class="number">0</span>]</span><br><span class="line">            .getBoundingClientRect ().height;</span><br><span class="line">          ctx.drawImage (img, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">          csv.addEventListener (<span class="string">'mousemove'</span>, draw.bind (<span class="keyword">this</span>));</span><br><span class="line">          csv.addEventListener (<span class="string">'mousedown'</span>, setPosition.bind (<span class="keyword">this</span>));</span><br><span class="line">          csv.addEventListener (<span class="string">'mouseenter'</span>, setPosition.bind (<span class="keyword">this</span>));</span><br><span class="line">        &#125;;</span><br><span class="line">      &#125;)</span><br><span class="line">      .catch (<span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.error (<span class="string">'oops, something went wrong!'</span>, error);</span><br><span class="line">      &#125;);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure><p>最终我们查看我们的效果：</p><p><img src="https://520stone-blog.oss-cn-beijing.aliyuncs.com/upload/2018-05-06T14:54:16Z/183ed9dc-7a25-473c-bf5d-bb15788ad513.png" alt=""></p><p>上图中，比如我们发现这个唐诗的作者不对，那我们可以给系统管理员进行反馈拉。</p><p>代码放在github上： <a href="https://github.com/stone-jin/feedback-1.git" target="_blank" rel="noopener">https://github.com/stone-jin/feedback-1.git</a></p><h2 id="四、总结"><a href="#四、总结" class="headerlink" title="四、总结"></a>四、总结</h2><p>我们看到标题中有个（一），说明肯定实际使用中有一些代码需要修改啦，那这个我们后面系列篇中带来我们来做一个模态框的反馈模块，还有可能小伙伴实际用的时候，会发现为什么我这种情况下图片出不来，我这种情况下字体图标出不来，这个canvas的图片，我怎么传到服务器端，传上去的图片为什么像素这么低，怎么来处理。</p><p>那我们看到知乎已经挺好的了，所以这个就是后面，我补下后面的模态框的篇，问题篇，然后讲解下dom-to-image这些的内容了，仅仅这样肯定也是不够的。</p><p>希望最终能达到这样的目的，能带领各位小伙伴一起完成下面的目标：</p><p>事业部的所有的管理系统，前端调用我们的前端npm包，后端使用@EnableFeedback这个注解，A系统想要对接，经过上面两个步骤即可。同时可以在反馈中心进行参数配置，那是不是解决了事业部下面，所有管理后台或者产品的反馈功能了，作者慢慢写，欢迎关注我。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;大家都知道每个系统都不可能是没有问题的，那么当用户使用的时候，我们现在的处理方式有哪些呢？&lt;/p&gt;
+&lt;p&gt;1、这个问题刚好在后端接口级别，那一般我们后端代码中，比如本博客中也有很多讲解，就是使用springboot全局的errorhandler（@ControllerAdv
+      
+    
+    </summary>
+    
+      <category term="前端" scheme="http://blog.fedfans.com/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+    
+      <category term="JAVA" scheme="http://blog.fedfans.com/tags/JAVA/"/>
+    
+      <category term="MAVEN" scheme="http://blog.fedfans.com/tags/MAVEN/"/>
+    
+      <category term="Angular" scheme="http://blog.fedfans.com/tags/Angular/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>（一）使用Spring Cloud Eureka搭建服务注册中心之入门篇</title>
+    <link href="http://blog.fedfans.com//page/article/32/"/>
+    <id>http://blog.fedfans.com//page/article/32/</id>
+    <published>2018-05-01T08:04:45.000Z</published>
+    <updated>2018-09-04T12:11:55.036Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="一、介绍"><a href="#一、介绍" class="headerlink" title="一、介绍"></a>一、介绍</h2><p>关于服务注册和发现，了解的有以下几种：</p><p>Eureka、Zookeeper、Redis、Etcd、Consul</p><p>然后已经使用过的是Eureka 和 Consul这两种，然后Zookeeper、Redis、Etcd还没有尝试过。</p><p>本文主要讲述的是使用Spring Cloud Eureka来搭建服务注册中心。</p><h2 id="二、使用方法"><a href="#二、使用方法" class="headerlink" title="二、使用方法"></a>二、使用方法</h2><p>使用方法也是比较简单：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependencies&gt;</span><br><span class="line">   &lt;dependency&gt;</span><br><span class="line">     &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</span><br><span class="line">     &lt;artifactId&gt;spring-cloud-starter-eureka-server&lt;/artifactId&gt;</span><br><span class="line">   &lt;/dependency&gt;</span><br><span class="line">&lt;/dependencies&gt;</span><br><span class="line">&lt;dependencyManagement&gt;</span><br><span class="line">   &lt;dependencies&gt;</span><br><span class="line">      &lt;dependency&gt;</span><br><span class="line">         &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</span><br><span class="line">         &lt;artifactId&gt;spring-cloud-dependencies&lt;/artifactId&gt;</span><br><span class="line">         &lt;version&gt;$&#123;spring-cloud.version&#125;&lt;/version&gt;</span><br><span class="line">         &lt;type&gt;pom&lt;/type&gt;</span><br><span class="line">         &lt;scope&gt;import&lt;/scope&gt;</span><br><span class="line">      &lt;/dependency&gt;</span><br><span class="line">   &lt;/dependencies&gt;</span><br><span class="line">&lt;/dependencyManagement&gt;</span><br></pre></td></tr></table></figure><p>然后在程序的主入口地方编写如下代码：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@EnableEurekaServer</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpringBootEurekaServerApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">      SpringApplication.run(SpringBootEurekaServerApplication.class, args);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>然后我们运行我们的代码，打开网页：<br><img src="https://520stone-blog.oss-cn-beijing.aliyuncs.com/upload/2018-05-01T08:03:29Z/faae6a5e-5743-4cae-86dd-b4b7d61ad11f.png" alt=""></p><p>三、总结<br>本文是如何让大家搭建一个Spring Cloud Eureka的服务注册与发现中心，每一章都是循序渐进。然后下一章节，我们将会把服务注册到这个Spring Cloud Eureka上来。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;一、介绍&quot;&gt;&lt;a href=&quot;#一、介绍&quot; class=&quot;headerlink&quot; title=&quot;一、介绍&quot;&gt;&lt;/a&gt;一、介绍&lt;/h2&gt;&lt;p&gt;关于服务注册和发现，了解的有以下几种：&lt;/p&gt;
+&lt;p&gt;Eureka、Zookeeper、Redis、Etcd、Consul&lt;
+      
+    
+    </summary>
+    
+      <category term="Spring Cloud" scheme="http://blog.fedfans.com/categories/Spring-Cloud/"/>
+    
+    
+      <category term="JAVA" scheme="http://blog.fedfans.com/tags/JAVA/"/>
+    
+      <category term="Spring Cloud" scheme="http://blog.fedfans.com/tags/Spring-Cloud/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>（四）Spring Boot中使用Spring boot Admin遇到的问题-问题篇</title>
+    <link href="http://blog.fedfans.com//page/article/31/"/>
+    <id>http://blog.fedfans.com//page/article/31/</id>
+    <published>2018-05-01T06:11:16.000Z</published>
+    <updated>2018-09-04T12:13:28.916Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="一、为什么我的服务虽然注册上来了，但是是offline的？"><a href="#一、为什么我的服务虽然注册上来了，但是是offline的？" class="headerlink" title="一、为什么我的服务虽然注册上来了，但是是offline的？"></a>一、为什么我的服务虽然注册上来了，但是是offline的？</h2><p>前面我们介绍了如何使用Spring Boot Admin，然后那我们肯定是要部署到服务器上面，然后我们部署到服务器上面的时候，发现服务能显示服务注册上来了，但是就是offline。</p><p>解决办法：由于Spring Boot admin client注册上来的时候，是通过hostname注册的，然后如果Spring boot admin在另外一台机器，如果没有配置hosts的话，那就无法访问到这个服务器了。</p><p>所以配置方法就是修改/etc/hosts文件，添加对应的host了</p><h2 id="二、服务注册的时候是hostname，而不是ip？"><a href="#二、服务注册的时候是hostname，而不是ip？" class="headerlink" title="二、服务注册的时候是hostname，而不是ip？"></a>二、服务注册的时候是hostname，而不是ip？</h2><p>这个通过配置spring.boot.admin.client.prefer-ip=true来达到目的。这个时候，我们会看到注册上来的是127.0.0.1这个ip，那肯定是不对的，所以这个时候我们还要再加上spring.boot.admin.client.service-url=<em>**</em>这个来解决，也就是我们在Spring boot admin网页上看到的</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;一、为什么我的服务虽然注册上来了，但是是offline的？&quot;&gt;&lt;a href=&quot;#一、为什么我的服务虽然注册上来了，但是是offline的？&quot; class=&quot;headerlink&quot; title=&quot;一、为什么我的服务虽然注册上来了，但是是offline的？&quot;&gt;&lt;/a
+      
+    
+    </summary>
+    
+      <category term="Spring Cloud" scheme="http://blog.fedfans.com/categories/Spring-Cloud/"/>
+    
+    
+      <category term="JAVA" scheme="http://blog.fedfans.com/tags/JAVA/"/>
+    
+      <category term="Spring Cloud" scheme="http://blog.fedfans.com/tags/Spring-Cloud/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>（三）Spring Boot Admin微服务监控中心之状态变更报警</title>
+    <link href="http://blog.fedfans.com//page/article/30/"/>
+    <id>http://blog.fedfans.com//page/article/30/</id>
+    <published>2018-04-30T13:40:28.000Z</published>
+    <updated>2018-09-04T12:17:50.977Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="一、介绍"><a href="#一、介绍" class="headerlink" title="一、介绍"></a>一、介绍</h2><p>前面两篇文章，我们一篇讲述了如何搭建一个Spring Boot Admin，一篇介绍了如何使用Spring Boot Admin client和actuator注册到Spring Boot Admin Server上来。那么我们下面的需求就是如何服务节点当服务上下线的时候，收到邮件呢？</p><h2 id="二、技术点"><a href="#二、技术点" class="headerlink" title="二、技术点"></a>二、技术点</h2><p>这个需求，我们使用spring-boot-starter-mail来解决我们的需求。首先我们在pom包中引入我们的包。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">   &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">   &lt;artifactId&gt;spring-boot-starter-mail&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure></p><p>然后引入pom包之后，reimport一下，然后我们再去修改我们的配置文件application.yml，此处我们以163的邮箱为例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">spring.mail.host=smtp.163.com</span><br><span class="line">spring.mail.username=****</span><br><span class="line">spring.mail.password=****</span><br><span class="line">spring.boot.admin.notify.mail.from=hzjinbing@163.com</span><br><span class="line">spring.boot.admin.notify.mail.to=m17606530974@163.com</span><br></pre></td></tr></table></figure></p><p>然后我们测试下我们刚刚文章二服务的上下线看看效果。</p><p>最终效果：</p><p><img src="https://520stone-blog.oss-cn-beijing.aliyuncs.com/upload/2018-04-30T13:29:45Z/947fcb19-1b11-43c2-9fd7-855caf160d23.png" alt=""></p><p>然后，我们的报警功能，就算完成了。这个过程中，推荐使用网易的邮箱大师来进行邮件的分类。（这个邮箱大师，支持gmail，163，qq邮箱等，所以我很推荐各位使用，当然这个不仅可以用在此处，接口级别的报警也可以类似方法）</p><p>安装邮箱大师的网址：<a href="http://mail.163.com/dashi/" target="_blank" rel="noopener">http://mail.163.com/dashi/</a></p><p>然后打开邮箱大师，然后打开左侧的设置界面：然后配置来信分类功能</p><p><img src="https://520stone-blog.oss-cn-beijing.aliyuncs.com/upload/2018-04-30T13:37:47Z/9af98641-b15b-4d17-bf33-8f9e9248bd61.png" alt=""></p><p>然后配置的条件如下，当标题中有is OFFLINE就移动到报警中心的文件夹下面：</p><p><img src="https://520stone-blog.oss-cn-beijing.aliyuncs.com/upload/2018-04-30T13:38:49Z/edac29b3-6e85-450c-adb3-37a96194836e.png" alt=""></p><p>这样服务下线，我们一点这个邮箱下面这个报警中心，就能看到我们所有的服务下线的记录了。</p><p>很开心介绍给大家我参与开发的这个软件，邮箱大师的开发，我作为hybird app模式，我是其中的前端，windows版本的日历，读写信，设置等均为前端开发，mac版本前端也是复用的。因为很好用，所以推荐给各位使用。</p><p>演示代码：<img src="https://github.com/stone-jin/spring-boot-admin-server2" alt=""></p><p>三、后续介绍<br>后面我看看是否再出一篇文章，比如如何进行Spring Boot Admin的集群。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;一、介绍&quot;&gt;&lt;a href=&quot;#一、介绍&quot; class=&quot;headerlink&quot; title=&quot;一、介绍&quot;&gt;&lt;/a&gt;一、介绍&lt;/h2&gt;&lt;p&gt;前面两篇文章，我们一篇讲述了如何搭建一个Spring Boot Admin，一篇介绍了如何使用Spring Boot Adm
+      
+    
+    </summary>
+    
+      <category term="Spring Cloud" scheme="http://blog.fedfans.com/categories/Spring-Cloud/"/>
+    
+    
+      <category term="JAVA" scheme="http://blog.fedfans.com/tags/JAVA/"/>
+    
+      <category term="Spring Cloud" scheme="http://blog.fedfans.com/tags/Spring-Cloud/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>（二）Spring Boot Admin微服务监控中心之节点注册</title>
+    <link href="http://blog.fedfans.com//page/article/29/"/>
+    <id>http://blog.fedfans.com//page/article/29/</id>
+    <published>2018-04-30T02:57:35.000Z</published>
+    <updated>2018-09-04T12:19:39.161Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h2><p>前面一篇文章，我们讲述了如何使用Spring Boot Admin搭建我们的微服务监控中心的server端，这篇文章我们主要是介绍我们如何让我们的应用注册到微服务的监控中心来，最终达到我们监控的目的。</p><h2 id="二、使用到的点"><a href="#二、使用到的点" class="headerlink" title="二、使用到的点"></a>二、使用到的点</h2><p>Spring Boot Admin的client端，我们主要使用spring boot actuator和spring boot admin的client两个pom包。</p><p>pom文件中我们添加如下两个pom包，然后reimport我们的maven。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">   &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">   &lt;artifactId&gt;spring-boot-starter-actuator&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">   &lt;groupId&gt;de.codecentric&lt;/groupId&gt;</span><br><span class="line">   &lt;artifactId&gt;spring-boot-admin-starter-client&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure><p>然后我们在application.yml中添加spring boot admin的server端的地址：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spring.boot.admin.url=http://127.0.0.1:8080</span><br></pre></td></tr></table></figure></p><p>然后我们可以刷新刚刚我们的Spring Boot Admin的页面查看效果：</p><p><img src="https://520stone-blog.oss-cn-beijing.aliyuncs.com/upload/2018-04-30T12:56:35Z/2326eea3-d2b4-438e-a855-5e1bcc635299.png" alt=""></p><p>然后我们使用的时候，就打开着这个网站，当服务有上下线的时候，就会有h5的通知，同时在Journal可以看到上下线过的历史记录。</p><p>三、改进点<br>我们要解决的是，如何让服务上下线的时候，会收到邮件通知，同时如何搭建Spring Boot Admin的集群</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;一、简介&quot;&gt;&lt;a href=&quot;#一、简介&quot; class=&quot;headerlink&quot; title=&quot;一、简介&quot;&gt;&lt;/a&gt;一、简介&lt;/h2&gt;&lt;p&gt;前面一篇文章，我们讲述了如何使用Spring Boot Admin搭建我们的微服务监控中心的server端，这篇文章我们主要
+      
+    
+    </summary>
+    
+      <category term="Spring Cloud" scheme="http://blog.fedfans.com/categories/Spring-Cloud/"/>
+    
+    
+      <category term="JAVA" scheme="http://blog.fedfans.com/tags/JAVA/"/>
+    
+      <category term="Spring Cloud" scheme="http://blog.fedfans.com/tags/Spring-Cloud/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>（一）Spring Boot Admin微服务监控中心之入门</title>
+    <link href="http://blog.fedfans.com//page/article/28/"/>
+    <id>http://blog.fedfans.com//page/article/28/</id>
+    <published>2018-04-29T14:59:15.000Z</published>
+    <updated>2018-09-04T12:21:37.713Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h2><p>微服务的稳定性，重要性相比大家想想都很清楚。如果我们的程序出错了，没有即时重启或者没有即时发现影响到了正常的业务，那么我们这个月或者这个季度的绩效基本离最差不远了。</p><p>所以服务的稳定性的保障方式：</p><p>1.代码级别：我们一般通过代码内部级别，比如对应接口的报警，如果出错了，我们就发送邮件给自己来保证自己写的代码不出错。</p><p>2.引用级别：我们可以通过Spring Boot Admin这样的微服务监控中心来看到我们自己写的代码的业务大盘。</p><h2 id="二、Spring-Boot-Admin"><a href="#二、Spring-Boot-Admin" class="headerlink" title="二、Spring Boot Admin"></a>二、Spring Boot Admin</h2><p>如果我们使用Spring Boot Admin的微服务监控中心，首先，我们需要搭建Spring Boot Admin的server，我们先新建一个工程，同时安装pom包：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">   &lt;groupId&gt;de.codecentric&lt;/groupId&gt;</span><br><span class="line">   &lt;artifactId&gt;spring-boot-admin-starter-server&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">   &lt;groupId&gt;de.codecentric&lt;/groupId&gt;</span><br><span class="line">   &lt;artifactId&gt;spring-boot-admin-server-ui&lt;/artifactId&gt;</span><br><span class="line">   &lt;version&gt;1.4.6&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure><p>安装完上面的之后，我们在程序的主入口添加这个装饰器：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@EnableAdminServer</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpringBootAdminServerApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">      SpringApplication.run(SpringBootAdminServerApplication.class, args);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><p>然后自此我们完成了我们的微服务监控中心。</p><p>三、效果图和代码<br>效果图：</p><p><img src="https://520stone-blog.oss-cn-beijing.aliyuncs.com/upload/2018-04-29T15:20:14Z/79305ba9-9433-4345-97b3-f3f442f8f653.png" alt=""></p><p>代码：<a href="https://github.com/stone-jin/spring-boot-admin-server" target="_blank" rel="noopener">https://github.com/stone-jin/spring-boot-admin-server</a></p><p>四、下一章内容<br>本文讲述了如何提供一个微服务监控中心，下一文，我们要实战将一个微服务注册到这个微服务监控中心来。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;一、简介&quot;&gt;&lt;a href=&quot;#一、简介&quot; class=&quot;headerlink&quot; title=&quot;一、简介&quot;&gt;&lt;/a&gt;一、简介&lt;/h2&gt;&lt;p&gt;微服务的稳定性，重要性相比大家想想都很清楚。如果我们的程序出错了，没有即时重启或者没有即时发现影响到了正常的业务，那么我们这
+      
+    
+    </summary>
+    
+      <category term="Spring Cloud" scheme="http://blog.fedfans.com/categories/Spring-Cloud/"/>
+    
+    
+      <category term="JAVA" scheme="http://blog.fedfans.com/tags/JAVA/"/>
+    
+      <category term="Spring Cloud" scheme="http://blog.fedfans.com/tags/Spring-Cloud/"/>
     
   </entry>
   
