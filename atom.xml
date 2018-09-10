@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.fedfans.com/"/>
-  <updated>2018-08-30T16:40:09.493Z</updated>
+  <updated>2018-09-10T13:14:49.043Z</updated>
   <id>http://blog.fedfans.com/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Node.js里面import和require一样吗？</title>
+    <link href="http://blog.fedfans.com//page/article/%E5%85%B3%E4%BA%8Eimport%E5%92%8Crequire%E7%9A%84%E4%B8%80%E4%B8%AA%E5%9D%91/"/>
+    <id>http://blog.fedfans.com//page/article/关于import和require的一个坑/</id>
+    <published>2018-09-10T12:28:31.000Z</published>
+    <updated>2018-09-10T13:14:49.043Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="内容简介"><a href="#内容简介" class="headerlink" title="内容简介"></a>内容简介</h2><p>本文主要讲解内容：import * as http from ‘http’; 和 const http = require(‘http’)这两种写法是否效果是相同的？</p><h2 id="问题场景篇"><a href="#问题场景篇" class="headerlink" title="问题场景篇"></a>问题场景篇</h2><p>我的ts的代码里面，把import * as http from ‘http’; 和 const http = require(‘http’)，这两个表现不一样。</p><p>如下代码: A.ts是我封装的一个包，相当于内部，我使用shimmer对这个http的createServer这个函数进行hook，然后方便做代码http接口调用情况的统计。main.ts假设是业务系统里面的代码，内部假设使用的是var koa = require(‘koa’)，底层肯定是http的createServer，所以我们此处用var http = require(‘http’)来模拟，然后发现A.ts包里面如果我用import * as http from ‘http’;则hook不了对应的createServer的代码，但是我用const http = require(‘http’)就可以hook。</p><p>A.ts<br><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> http <span class="keyword">from</span> <span class="string">'http'</span>;</span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> shimmer <span class="keyword">from</span> <span class="string">'shimmer'</span>;</span><br><span class="line"></span><br><span class="line">shimmer.wrap(http, <span class="string">'createServer'</span>, <span class="function"><span class="params">original</span>=&gt;</span>&#123;</span><br><span class="line">   <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"><span class="keyword">this</span>: <span class="built_in">any</span>, requestListener: <span class="built_in">any</span></span>)</span>&#123;</span><br><span class="line">       <span class="built_in">console</span>.log(<span class="string">"====&gt;"</span>)</span><br><span class="line">       <span class="built_in">console</span>.log(<span class="string">"2222"</span>)</span><br><span class="line">       <span class="comment">// 此处hook最底层的http,createServer</span></span><br><span class="line">       <span class="comment">// @ts-ignore</span></span><br><span class="line">       <span class="keyword">const</span> result = original.apply(<span class="keyword">this</span>, <span class="built_in">arguments</span>);</span><br><span class="line">       <span class="keyword">return</span> result;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p><p>main.ts(业务代码里面，假设是require(‘http’))<br><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> proxy = http.createServer(<span class="function">(<span class="params">req: <span class="built_in">any</span>, res : <span class="built_in">any</span></span>) =&gt;</span> &#123;</span><br><span class="line">    res.writeHead(<span class="number">200</span>, &#123; <span class="string">'Content-Type'</span>: <span class="string">'text/plain'</span> &#125;);</span><br><span class="line">    res.end(<span class="string">'okay'</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p><h2 id="问题排查"><a href="#问题排查" class="headerlink" title="问题排查"></a>问题排查</h2><p>然后将对应的ts代码编译代码后发现: import 的代码编译成了下面这种代码<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> __importStar = (<span class="keyword">this</span> &amp;&amp; <span class="keyword">this</span>.__importStar) || <span class="function"><span class="keyword">function</span> (<span class="params">mod</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (mod &amp;&amp; mod.__esModule) <span class="keyword">return</span> mod;</span><br><span class="line">    <span class="keyword">var</span> result = &#123;&#125;;</span><br><span class="line">    <span class="keyword">if</span> (mod != <span class="literal">null</span>) <span class="keyword">for</span> (<span class="keyword">var</span> k <span class="keyword">in</span> mod) <span class="keyword">if</span> (<span class="built_in">Object</span>.hasOwnProperty.call(mod, k)) result[k] = mod[k];</span><br><span class="line">    result[<span class="string">"default"</span>] = mod;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> http = __importStar(<span class="built_in">require</span>(<span class="string">"http"</span>));</span><br></pre></td></tr></table></figure></p><p>相当于我写的代码为什么不是<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>)</span><br></pre></td></tr></table></figure></p><p>呢？不然我hook的其实是这个__importStar里面这个result上面的createServer这个函数</p><p>最终，查到原来是ts的配置项中的esModuleInterop被设置成了true导致的。我们查看tsconfig.json文件里面的描述<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies &apos;allowSyntheticDefaultImports&apos;</span><br></pre></td></tr></table></figure></p><p>相当于是为了做一个CommonJS和es modules这边的一个互通，会帮忙新建一个namespace objects。所以相当于这个__importStar是为了跟es modules那边有关系。</p><p>解决办法:把tsconfig.json里面这个特性关掉<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">esModuleInterop: false</span><br></pre></td></tr></table></figure></p><h2 id="继续深入查询"><a href="#继续深入查询" class="headerlink" title="继续深入查询"></a>继续深入查询</h2><p>然后我们看一下babel那块对于import这块的处理，我们写一个main.js<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> http <span class="keyword">from</span> <span class="string">'http'</span>;</span><br><span class="line"></span><br><span class="line">http.get(<span class="string">"http://www.baidu.com"</span>);</span><br></pre></td></tr></table></figure></p><p>然后项目安装babel的依赖<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev babel-preset-es2015</span><br><span class="line"></span><br><span class="line"># ES7不同阶段语法提案的转码规则（共有4个阶段），选装一个</span><br><span class="line">$ npm install --save-dev babel-preset-stage-0</span><br><span class="line">$ npm install --save-dev babel-preset-stage-1</span><br><span class="line">$ npm install --save-dev babel-preset-stage-2</span><br><span class="line">$ npm install --save-dev babel-preset-stage-3</span><br></pre></td></tr></table></figure></p><p>然后新建一个文件.babelrc文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;presets&quot;: [</span><br><span class="line">    &quot;es2015&quot;,</span><br><span class="line">    &quot;stage-2&quot;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><p>然后我们通过调用babel main.js –out-file out.js,查看过babel之后的这个包</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">"use strict"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> _http = <span class="built_in">require</span>(<span class="string">"http"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> http = _interopRequireWildcard(_http);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_interopRequireWildcard</span>(<span class="params">obj</span>) </span>&#123; <span class="keyword">if</span> (obj &amp;&amp; obj.__esModule) &#123; <span class="keyword">return</span> obj; &#125; <span class="keyword">else</span> &#123; <span class="keyword">var</span> newObj = &#123;&#125;; <span class="keyword">if</span> (obj != <span class="literal">null</span>) &#123; <span class="keyword">for</span> (<span class="keyword">var</span> key <span class="keyword">in</span> obj) &#123; <span class="keyword">if</span> (<span class="built_in">Object</span>.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; &#125; &#125; newObj.default = obj; <span class="keyword">return</span> newObj; &#125; &#125;</span><br><span class="line"></span><br><span class="line">http.get(<span class="string">"http://www.baidu.com"</span>);</span><br></pre></td></tr></table></figure><p>然后我们也看到了一个类似__importStar这样的函数，也就是_interopRequireWildcard，也是内部去创建了一个{}。</p><h2 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h2><p>所以我们最终可以得到一个结果，babel这边<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> http <span class="keyword">from</span> <span class="string">'http'</span>;</span><br></pre></td></tr></table></figure></p><p>其实跟const http = require(‘http’)是有区别的，babel这边会帮我们生成一个类似namespace这样的东西。相当于这个文件里面里面http是处于一个namespace里面的，两个文件都import * as http from ‘http’; 如果其中一个文件修改了，则另外一个是不会被修改的。</p><p>然后typescript编译器那边，给我们加了这样一个属性，就是是否需要这种特性，也就是配置项: esModuleInterop</p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>那对于我的需求来说，我是为了让调用这个npm方的人，对于大家调用的底层的http包进行hook，所以我不希望有这样一个namespace包起来，所以我的ts代码里面就需要把这个esModuleInterop给关闭掉。最终编译后的代码:</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">"http"</span>);</span><br><span class="line"><span class="comment">//简称这个地方不会帮我们包一层namespace</span></span><br></pre></td></tr></table></figure><p>所以Node.js里面，typescript，关于模块引用，我们可以选择用es module的形式去引用一个包，也可以用commonJS的方式去引用一个包，如果你是用es6在写。那es6那边你import了一个包，那就会多一个namespace这样的东西。如果有不对，请帮忙指正下。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;内容简介&quot;&gt;&lt;a href=&quot;#内容简介&quot; class=&quot;headerlink&quot; title=&quot;内容简介&quot;&gt;&lt;/a&gt;内容简介&lt;/h2&gt;&lt;p&gt;本文主要讲解内容：import * as http from ‘http’; 和 const http = require(
+      
+    
+    </summary>
+    
+      <category term="后端" scheme="http://blog.fedfans.com/categories/%E5%90%8E%E7%AB%AF/"/>
+    
+      <category term="Node" scheme="http://blog.fedfans.com/categories/%E5%90%8E%E7%AB%AF/Node/"/>
+    
+    
+      <category term="NodeJS" scheme="http://blog.fedfans.com/tags/NodeJS/"/>
+    
+      <category term="问题" scheme="http://blog.fedfans.com/tags/%E9%97%AE%E9%A2%98/"/>
+    
+  </entry>
   
   <entry>
     <title>Pandora源码-Pandora-dashboard(一)</title>
@@ -176,9 +205,9 @@
       <category term="环境搭建" scheme="http://blog.fedfans.com/categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
     
     
-      <category term="环境搭建" scheme="http://blog.fedfans.com/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
-    
       <category term="Maven" scheme="http://blog.fedfans.com/tags/Maven/"/>
+    
+      <category term="环境搭建" scheme="http://blog.fedfans.com/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
     
   </entry>
   
@@ -210,34 +239,6 @@
   </entry>
   
   <entry>
-    <title>服务器资源有限，所以给服务器配置下swap</title>
-    <link href="http://blog.fedfans.com//page/article/40/"/>
-    <id>http://blog.fedfans.com//page/article/40/</id>
-    <published>2018-07-10T05:13:20.000Z</published>
-    <updated>2018-08-31T14:45:11.093Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="一、背景"><a href="#一、背景" class="headerlink" title="一、背景"></a>一、背景</h2><p>我们的服务器资源比较有限，所以我们需要节约资源，swap能让我们机器发挥更大的作用，否则分分钟报表。</p><p>文档：</p><p><a href="https://help.aliyun.com/knowledge_detail/42534.html" target="_blank" rel="noopener">https://help.aliyun.com/knowledge_detail/42534.html</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;一、背景&quot;&gt;&lt;a href=&quot;#一、背景&quot; class=&quot;headerlink&quot; title=&quot;一、背景&quot;&gt;&lt;/a&gt;一、背景&lt;/h2&gt;&lt;p&gt;我们的服务器资源比较有限，所以我们需要节约资源，swap能让我们机器发挥更大的作用，否则分分钟报表。&lt;/p&gt;
-&lt;p&gt;文档：&lt;
-      
-    
-    </summary>
-    
-      <category term="环境搭建" scheme="http://blog.fedfans.com/categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
-    
-    
-      <category term="Swap" scheme="http://blog.fedfans.com/tags/Swap/"/>
-    
-      <category term="环境搭建" scheme="http://blog.fedfans.com/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
-    
-  </entry>
-  
-  <entry>
     <title>搭建自己的gitlab服务以及gitlab-ci的开发模式</title>
     <link href="http://blog.fedfans.com//page/article/39/"/>
     <id>http://blog.fedfans.com//page/article/39/</id>
@@ -261,6 +262,34 @@
       <category term="Gitlab" scheme="http://blog.fedfans.com/tags/Gitlab/"/>
     
       <category term="工程化" scheme="http://blog.fedfans.com/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>服务器资源有限，所以给服务器配置下swap</title>
+    <link href="http://blog.fedfans.com//page/article/40/"/>
+    <id>http://blog.fedfans.com//page/article/40/</id>
+    <published>2018-07-10T05:13:20.000Z</published>
+    <updated>2018-08-31T14:45:11.093Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="一、背景"><a href="#一、背景" class="headerlink" title="一、背景"></a>一、背景</h2><p>我们的服务器资源比较有限，所以我们需要节约资源，swap能让我们机器发挥更大的作用，否则分分钟报表。</p><p>文档：</p><p><a href="https://help.aliyun.com/knowledge_detail/42534.html" target="_blank" rel="noopener">https://help.aliyun.com/knowledge_detail/42534.html</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;一、背景&quot;&gt;&lt;a href=&quot;#一、背景&quot; class=&quot;headerlink&quot; title=&quot;一、背景&quot;&gt;&lt;/a&gt;一、背景&lt;/h2&gt;&lt;p&gt;我们的服务器资源比较有限，所以我们需要节约资源，swap能让我们机器发挥更大的作用，否则分分钟报表。&lt;/p&gt;
+&lt;p&gt;文档：&lt;
+      
+    
+    </summary>
+    
+      <category term="环境搭建" scheme="http://blog.fedfans.com/categories/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
+    
+    
+      <category term="环境搭建" scheme="http://blog.fedfans.com/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
+    
+      <category term="Swap" scheme="http://blog.fedfans.com/tags/Swap/"/>
     
   </entry>
   
@@ -348,19 +377,19 @@
   </entry>
   
   <entry>
-    <title>搭建maven的私有仓库</title>
-    <link href="http://blog.fedfans.com//page/article/35/"/>
-    <id>http://blog.fedfans.com//page/article/35/</id>
+    <title>maven发布项目到私服-snapshot快照库和release发布库的区别和作用及maven常用命令</title>
+    <link href="http://blog.fedfans.com//page/article/34/"/>
+    <id>http://blog.fedfans.com//page/article/34/</id>
     <published>2018-05-14T12:06:36.000Z</published>
-    <updated>2018-08-31T15:13:36.940Z</updated>
+    <updated>2018-08-31T15:25:17.799Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="一、介绍"><a href="#一、介绍" class="headerlink" title="一、介绍"></a>一、介绍</h2><p>随着工作年限的增长，个人用过python的pip仓库，前端的npm仓库，java的pom仓库。也体验过没有中心仓库管理的，C++类似下载一个tar.gz包，然后获取头文件和lib或者so，进行调用第三方库。感想就是，使用这些库是多么的方便，能高效的提升我们的开发效率。所以本文就来搭建一个maven仓库，并且来发布我们的第一个pom包。</p><h2 id="二、搭建"><a href="#二、搭建" class="headerlink" title="二、搭建"></a>二、搭建</h2><p>这年头使用docker是多么的方便，所以我们自然而言，想的是搜索下能不能使用docker来搭建我们的maven仓库。搜索后，我们找到sonatype/nexus。</p><p>最终我们找到资料：<a href="https://hub.docker.com/r/sonatype/nexus/" target="_blank" rel="noopener">https://hub.docker.com/r/sonatype/nexus/</a></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 8081:8081 --name nexus sonatype/nexus:oss</span><br></pre></td></tr></table></figure><p>然后我们装完后，访问网页看看能不能访问了：</p><p>打开网址：<a href="http://localhost:8081/nexus/#welcome" target="_blank" rel="noopener">http://localhost:8081/nexus/#welcome</a></p><p>然后我们能看到下面的效果：</p><p><img src="https://520stone-blog.oss-cn-beijing.aliyuncs.com/upload/2018-05-14T12:02:48Z/688b1d8e-6e60-4dce-8cb7-8ea09899fcd8.png" alt=""></p><p>然后我们点击右上角的登录，使用一下默认的账号试一下：admin/admin123</p><p>然后发包过程，看我上一篇的文章</p><p><a href="https://www.520stone.com/page/article/34" target="_blank" rel="noopener">《maven发布项目到私服-snapshot快照库和release发布库的区别和作用及maven常用命令》</a></p><p>三、总结<br>搭建了自己的maven仓库，并将自己的代码复用后，极大的提升了自己的代码复用，同时做的基础组件能提供给组里或者部门的其他同事使用。</p>]]></content>
+    <content type="html"><![CDATA[<p>在日常的工作中由于各种原因，会发生这样一种情况，某些项目并没有打包至mvnrepository。如果采用直接打包放到lib目录的方式进行处理，便对项目的管理带来一些不必要的麻烦。例如版本升级后需要重新打包并替换原有jar包等等一些额外的工作量和麻烦。为了避免这些不必要的麻烦，通常我们会通过Nexus搭建私有的仓库。下面着重介绍下怎么通过mvn命令将程序打包并发布到私有仓库Nexus中。</p><p>前提：</p><p>1.已成功安装maven</p><p>2.已成功安装Nexus（管理账号：admin，密码：admin123，搭建方式我写了一篇文章：<a href="https://www.520stone.com/page/article/35" target="_blank" rel="noopener">https://www.520stone.com/page/article/35</a>）</p><p>3.项目通过maven进行管理</p><p>maven安装目录下setting.xml中添加如下配置：</p><p>servers节点中添加：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;server&gt;</span><br><span class="line">    &lt;id&gt;releases&lt;/id&gt;</span><br><span class="line">    &lt;username&gt;admin&lt;/username&gt;</span><br><span class="line">    &lt;password&gt;admin123&lt;/password&gt;</span><br><span class="line">&lt;/server&gt;</span><br><span class="line">&lt;server&gt;</span><br><span class="line">    &lt;id&gt;snapshots&lt;/id&gt;</span><br><span class="line">    &lt;username&gt;admin&lt;/username&gt;</span><br><span class="line">    &lt;password&gt;admin123&lt;/password&gt;</span><br><span class="line">&lt;/server&gt;</span><br></pre></td></tr></table></figure><p>注意：如果非admin用户，需要在Nexus中对相应的账号设置密码</p><p>1.打开安全设置：<a href="http://localhost:8081/nexus/#security-users" target="_blank" rel="noopener">http://localhost:8081/nexus/#security-users</a></p><p>2.选择相应的用户–》右键–》reset password/set password –》进行密码设置</p><p>3.相应的仓库允许重复发布（Repository–》选择对应的仓库–》Configuration–》Deployment Policy下拉选项中选择“Allow Redeoploy”），如果不允许重复发布，重复发布时会出现401等异常情况。</p><p>项目下pom.xml中添加如下内容：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 项目发布管理 --&gt;</span><br><span class="line">&lt;distributionManagement&gt;</span><br><span class="line">  &lt;repository&gt;</span><br><span class="line">    &lt;id&gt;releases&lt;/id&gt;</span><br><span class="line">    &lt;name&gt;User Project Release&lt;/name&gt;</span><br><span class="line">    &lt;url&gt;http://127.0.0.1:8081/nexus/content/repositories/releases/&lt;/url&gt;</span><br><span class="line">  &lt;/repository&gt;</span><br><span class="line"></span><br><span class="line">  &lt;snapshotRepository&gt;</span><br><span class="line">    &lt;id&gt;snapshots&lt;/id&gt;</span><br><span class="line">    &lt;name&gt;User Project SNAPSHOTS&lt;/name&gt;</span><br><span class="line">    &lt;url&gt;http://127.0.0.1:8081/nexus/content/repositories/snapshots/&lt;/url&gt;</span><br><span class="line">  &lt;/snapshotRepository&gt;</span><br><span class="line">&lt;/distributionManagement&gt;</span><br></pre></td></tr></table></figure><p>发布到私服</p><p>切换到项目根目录后运行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">mvn clean deploy -X -Dmaven.test.skip=true</span><br><span class="line">```即可。如果发布成功会出现BUILD SUCCESS的字样。查看仓库http://127.0.0.1:8081/nexus/content/repositories/releases/已经包含了相应的包。</span><br><span class="line"></span><br><span class="line">注意：</span><br><span class="line"></span><br><span class="line">如果想发布到snapshot仓库中，则需要在版本号后加上—SNAPSHOT（注意这里必须是大写）</span><br><span class="line"></span><br><span class="line">如：</span><br><span class="line"></span><br><span class="line">```text</span><br><span class="line">&lt;groupId&gt;cc.mzone&lt;/groupId&gt;</span><br><span class="line">&lt;artifactId&gt;m1&lt;/artifactId&gt;</span><br><span class="line">&lt;version&gt;0.1-SNAPSHOT&lt;/version&gt;</span><br><span class="line">&lt;packaging&gt;jar&lt;/packaging&gt;</span><br></pre></td></tr></table></figure></p><p>maven中snapshot快照库和release发布库的区别和作用</p><p>在使用maven过程中，我们在开发阶段经常性的会有很多公共库处于不稳定状态，随时需要修改并发布，可能一天就要发布一天，遇到bug时，甚至一天要发布N此。我们知道，maven的依赖管理是基于版本管理的，对于发布状态的artifact，如果版本号相同，即使我们内部的镜像服务器上的组件比本地新，maven也不会主动下载的。如果我们在开发阶段都是基于正式发布版本来做依赖版本，name遇到这个问题，就需要升级组件的版本号，可这样就明显不符合要求和实际情况了。但是，如果是基于快照版本，name问题就自然而然的解决了，而maven已经为我们准备好了这一切。</p><p>maven中的仓库分为两种，snapshot快照仓库和release发布仓库。snapshot快照仓库用于保存开发过程中的不稳定版本，release正式仓库则是用来保存稳定的发布版本。定义一个组件/模块为快照版本，只需要在pom文件中在该模块的版本号后加上 -SNAPSHOT即可（注意这里必须是大写），如下：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;groupId&gt;cc.mzone&lt;/groupId&gt;</span><br><span class="line">&lt;artifactId&gt;m1&lt;/artifactId&gt;</span><br><span class="line">&lt;version&gt;0.1-SNAPSHOT&lt;/version&gt;</span><br><span class="line">&lt;packaging&gt;jar&lt;/packaging&gt;</span><br></pre></td></tr></table></figure><p>maven2会根据模块的版本号（pom文件中的maven）中是否带有-SNAPSHOT来判断是否是快照版本还是正式版本。如果是快照版本，name在mvn deploy时会自动发布到快照版本库中，二使用快照版本的模块，在不更改版本的情况下，直接编译打包时，maven会自动从镜像仓库服务器上下载最新的快照版本。如果是正式发布版本，name在mvn deploy时会自动发布到正式版本库中，二使用正式版本的模块，在不更改版本的情况下，编译打包时如果已经存在该版本的模块则不会主动去镜像服务器上下载。</p><p>jar包发布到指定仓库</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn deploy:deploy-file -DgroupId=com.xy.oracle -DartifactId=ojdbc14 -Dversion=10.2.0.4.0 -Dpackaging=jar -Dfile=E:\ojdbc14.jar -Durl=http://127.0.0.1:8081/nexus/content/repositories/thirdparty/ -DrepositoryId=thirdparty</span><br></pre></td></tr></table></figure><p>jar包发布到本地缓存仓库</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn clean install</span><br></pre></td></tr></table></figure><p>注意：</p><ol><li>如果出现400，需要注意项目下的pom.xml文件和maven使用的setting.xml文件的配置是否一致。</li><li>如果出现401，需要检查maven使用的setting.xml中的账号和密码是否正确，相应的repository是否为ALLow redeploy</li><li>如果使用的intellij，eclipse或myeclipse需要注意ide中使用的setting.xml和maven命令行下的setting.xml是否一致；否则会出现许多莫名其妙的问题。</li></ol><p>原文地址：<a href="https://www.cnblogs.com/rwxwsblog/p/6029636.html" target="_blank" rel="noopener">https://www.cnblogs.com/rwxwsblog/p/6029636.html</a></p>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;h2 id=&quot;一、介绍&quot;&gt;&lt;a href=&quot;#一、介绍&quot; class=&quot;headerlink&quot; title=&quot;一、介绍&quot;&gt;&lt;/a&gt;一、介绍&lt;/h2&gt;&lt;p&gt;随着工作年限的增长，个人用过python的pip仓库，前端的npm仓库，java的pom仓库。也体验过没有中心仓库管理的，C
+        &lt;p&gt;在日常的工作中由于各种原因，会发生这样一种情况，某些项目并没有打包至mvnrepository。如果采用直接打包放到lib目录的方式进行处理，便对项目的管理带来一些不必要的麻烦。例如版本升级后需要重新打包并替换原有jar包等等一些额外的工作量和麻烦。为了避免这些不必要的麻烦
       
     
     </summary>
@@ -375,19 +404,19 @@
   </entry>
   
   <entry>
-    <title>maven发布项目到私服-snapshot快照库和release发布库的区别和作用及maven常用命令</title>
-    <link href="http://blog.fedfans.com//page/article/34/"/>
-    <id>http://blog.fedfans.com//page/article/34/</id>
+    <title>搭建maven的私有仓库</title>
+    <link href="http://blog.fedfans.com//page/article/35/"/>
+    <id>http://blog.fedfans.com//page/article/35/</id>
     <published>2018-05-14T12:06:36.000Z</published>
-    <updated>2018-08-31T15:25:17.799Z</updated>
+    <updated>2018-08-31T15:13:36.940Z</updated>
     
-    <content type="html"><![CDATA[<p>在日常的工作中由于各种原因，会发生这样一种情况，某些项目并没有打包至mvnrepository。如果采用直接打包放到lib目录的方式进行处理，便对项目的管理带来一些不必要的麻烦。例如版本升级后需要重新打包并替换原有jar包等等一些额外的工作量和麻烦。为了避免这些不必要的麻烦，通常我们会通过Nexus搭建私有的仓库。下面着重介绍下怎么通过mvn命令将程序打包并发布到私有仓库Nexus中。</p><p>前提：</p><p>1.已成功安装maven</p><p>2.已成功安装Nexus（管理账号：admin，密码：admin123，搭建方式我写了一篇文章：<a href="https://www.520stone.com/page/article/35" target="_blank" rel="noopener">https://www.520stone.com/page/article/35</a>）</p><p>3.项目通过maven进行管理</p><p>maven安装目录下setting.xml中添加如下配置：</p><p>servers节点中添加：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;server&gt;</span><br><span class="line">    &lt;id&gt;releases&lt;/id&gt;</span><br><span class="line">    &lt;username&gt;admin&lt;/username&gt;</span><br><span class="line">    &lt;password&gt;admin123&lt;/password&gt;</span><br><span class="line">&lt;/server&gt;</span><br><span class="line">&lt;server&gt;</span><br><span class="line">    &lt;id&gt;snapshots&lt;/id&gt;</span><br><span class="line">    &lt;username&gt;admin&lt;/username&gt;</span><br><span class="line">    &lt;password&gt;admin123&lt;/password&gt;</span><br><span class="line">&lt;/server&gt;</span><br></pre></td></tr></table></figure><p>注意：如果非admin用户，需要在Nexus中对相应的账号设置密码</p><p>1.打开安全设置：<a href="http://localhost:8081/nexus/#security-users" target="_blank" rel="noopener">http://localhost:8081/nexus/#security-users</a></p><p>2.选择相应的用户–》右键–》reset password/set password –》进行密码设置</p><p>3.相应的仓库允许重复发布（Repository–》选择对应的仓库–》Configuration–》Deployment Policy下拉选项中选择“Allow Redeoploy”），如果不允许重复发布，重复发布时会出现401等异常情况。</p><p>项目下pom.xml中添加如下内容：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 项目发布管理 --&gt;</span><br><span class="line">&lt;distributionManagement&gt;</span><br><span class="line">  &lt;repository&gt;</span><br><span class="line">    &lt;id&gt;releases&lt;/id&gt;</span><br><span class="line">    &lt;name&gt;User Project Release&lt;/name&gt;</span><br><span class="line">    &lt;url&gt;http://127.0.0.1:8081/nexus/content/repositories/releases/&lt;/url&gt;</span><br><span class="line">  &lt;/repository&gt;</span><br><span class="line"></span><br><span class="line">  &lt;snapshotRepository&gt;</span><br><span class="line">    &lt;id&gt;snapshots&lt;/id&gt;</span><br><span class="line">    &lt;name&gt;User Project SNAPSHOTS&lt;/name&gt;</span><br><span class="line">    &lt;url&gt;http://127.0.0.1:8081/nexus/content/repositories/snapshots/&lt;/url&gt;</span><br><span class="line">  &lt;/snapshotRepository&gt;</span><br><span class="line">&lt;/distributionManagement&gt;</span><br></pre></td></tr></table></figure><p>发布到私服</p><p>切换到项目根目录后运行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">mvn clean deploy -X -Dmaven.test.skip=true</span><br><span class="line">```即可。如果发布成功会出现BUILD SUCCESS的字样。查看仓库http://127.0.0.1:8081/nexus/content/repositories/releases/已经包含了相应的包。</span><br><span class="line"></span><br><span class="line">注意：</span><br><span class="line"></span><br><span class="line">如果想发布到snapshot仓库中，则需要在版本号后加上—SNAPSHOT（注意这里必须是大写）</span><br><span class="line"></span><br><span class="line">如：</span><br><span class="line"></span><br><span class="line">```text</span><br><span class="line">&lt;groupId&gt;cc.mzone&lt;/groupId&gt;</span><br><span class="line">&lt;artifactId&gt;m1&lt;/artifactId&gt;</span><br><span class="line">&lt;version&gt;0.1-SNAPSHOT&lt;/version&gt;</span><br><span class="line">&lt;packaging&gt;jar&lt;/packaging&gt;</span><br></pre></td></tr></table></figure></p><p>maven中snapshot快照库和release发布库的区别和作用</p><p>在使用maven过程中，我们在开发阶段经常性的会有很多公共库处于不稳定状态，随时需要修改并发布，可能一天就要发布一天，遇到bug时，甚至一天要发布N此。我们知道，maven的依赖管理是基于版本管理的，对于发布状态的artifact，如果版本号相同，即使我们内部的镜像服务器上的组件比本地新，maven也不会主动下载的。如果我们在开发阶段都是基于正式发布版本来做依赖版本，name遇到这个问题，就需要升级组件的版本号，可这样就明显不符合要求和实际情况了。但是，如果是基于快照版本，name问题就自然而然的解决了，而maven已经为我们准备好了这一切。</p><p>maven中的仓库分为两种，snapshot快照仓库和release发布仓库。snapshot快照仓库用于保存开发过程中的不稳定版本，release正式仓库则是用来保存稳定的发布版本。定义一个组件/模块为快照版本，只需要在pom文件中在该模块的版本号后加上 -SNAPSHOT即可（注意这里必须是大写），如下：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;groupId&gt;cc.mzone&lt;/groupId&gt;</span><br><span class="line">&lt;artifactId&gt;m1&lt;/artifactId&gt;</span><br><span class="line">&lt;version&gt;0.1-SNAPSHOT&lt;/version&gt;</span><br><span class="line">&lt;packaging&gt;jar&lt;/packaging&gt;</span><br></pre></td></tr></table></figure><p>maven2会根据模块的版本号（pom文件中的maven）中是否带有-SNAPSHOT来判断是否是快照版本还是正式版本。如果是快照版本，name在mvn deploy时会自动发布到快照版本库中，二使用快照版本的模块，在不更改版本的情况下，直接编译打包时，maven会自动从镜像仓库服务器上下载最新的快照版本。如果是正式发布版本，name在mvn deploy时会自动发布到正式版本库中，二使用正式版本的模块，在不更改版本的情况下，编译打包时如果已经存在该版本的模块则不会主动去镜像服务器上下载。</p><p>jar包发布到指定仓库</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn deploy:deploy-file -DgroupId=com.xy.oracle -DartifactId=ojdbc14 -Dversion=10.2.0.4.0 -Dpackaging=jar -Dfile=E:\ojdbc14.jar -Durl=http://127.0.0.1:8081/nexus/content/repositories/thirdparty/ -DrepositoryId=thirdparty</span><br></pre></td></tr></table></figure><p>jar包发布到本地缓存仓库</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn clean install</span><br></pre></td></tr></table></figure><p>注意：</p><ol><li>如果出现400，需要注意项目下的pom.xml文件和maven使用的setting.xml文件的配置是否一致。</li><li>如果出现401，需要检查maven使用的setting.xml中的账号和密码是否正确，相应的repository是否为ALLow redeploy</li><li>如果使用的intellij，eclipse或myeclipse需要注意ide中使用的setting.xml和maven命令行下的setting.xml是否一致；否则会出现许多莫名其妙的问题。</li></ol><p>原文地址：<a href="https://www.cnblogs.com/rwxwsblog/p/6029636.html" target="_blank" rel="noopener">https://www.cnblogs.com/rwxwsblog/p/6029636.html</a></p>]]></content>
+    <content type="html"><![CDATA[<h2 id="一、介绍"><a href="#一、介绍" class="headerlink" title="一、介绍"></a>一、介绍</h2><p>随着工作年限的增长，个人用过python的pip仓库，前端的npm仓库，java的pom仓库。也体验过没有中心仓库管理的，C++类似下载一个tar.gz包，然后获取头文件和lib或者so，进行调用第三方库。感想就是，使用这些库是多么的方便，能高效的提升我们的开发效率。所以本文就来搭建一个maven仓库，并且来发布我们的第一个pom包。</p><h2 id="二、搭建"><a href="#二、搭建" class="headerlink" title="二、搭建"></a>二、搭建</h2><p>这年头使用docker是多么的方便，所以我们自然而言，想的是搜索下能不能使用docker来搭建我们的maven仓库。搜索后，我们找到sonatype/nexus。</p><p>最终我们找到资料：<a href="https://hub.docker.com/r/sonatype/nexus/" target="_blank" rel="noopener">https://hub.docker.com/r/sonatype/nexus/</a></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 8081:8081 --name nexus sonatype/nexus:oss</span><br></pre></td></tr></table></figure><p>然后我们装完后，访问网页看看能不能访问了：</p><p>打开网址：<a href="http://localhost:8081/nexus/#welcome" target="_blank" rel="noopener">http://localhost:8081/nexus/#welcome</a></p><p>然后我们能看到下面的效果：</p><p><img src="https://520stone-blog.oss-cn-beijing.aliyuncs.com/upload/2018-05-14T12:02:48Z/688b1d8e-6e60-4dce-8cb7-8ea09899fcd8.png" alt=""></p><p>然后我们点击右上角的登录，使用一下默认的账号试一下：admin/admin123</p><p>然后发包过程，看我上一篇的文章</p><p><a href="https://www.520stone.com/page/article/34" target="_blank" rel="noopener">《maven发布项目到私服-snapshot快照库和release发布库的区别和作用及maven常用命令》</a></p><p>三、总结<br>搭建了自己的maven仓库，并将自己的代码复用后，极大的提升了自己的代码复用，同时做的基础组件能提供给组里或者部门的其他同事使用。</p>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;p&gt;在日常的工作中由于各种原因，会发生这样一种情况，某些项目并没有打包至mvnrepository。如果采用直接打包放到lib目录的方式进行处理，便对项目的管理带来一些不必要的麻烦。例如版本升级后需要重新打包并替换原有jar包等等一些额外的工作量和麻烦。为了避免这些不必要的麻烦
+        &lt;h2 id=&quot;一、介绍&quot;&gt;&lt;a href=&quot;#一、介绍&quot; class=&quot;headerlink&quot; title=&quot;一、介绍&quot;&gt;&lt;/a&gt;一、介绍&lt;/h2&gt;&lt;p&gt;随着工作年限的增长，个人用过python的pip仓库，前端的npm仓库，java的pom仓库。也体验过没有中心仓库管理的，C
       
     
     </summary>
@@ -527,33 +556,6 @@
       
       
         &lt;h2 id=&quot;一、简介&quot;&gt;&lt;a href=&quot;#一、简介&quot; class=&quot;headerlink&quot; title=&quot;一、简介&quot;&gt;&lt;/a&gt;一、简介&lt;/h2&gt;&lt;p&gt;前面一篇文章，我们讲述了如何使用Spring Boot Admin搭建我们的微服务监控中心的server端，这篇文章我们主要
-      
-    
-    </summary>
-    
-      <category term="Spring Cloud" scheme="http://blog.fedfans.com/categories/Spring-Cloud/"/>
-    
-    
-      <category term="JAVA" scheme="http://blog.fedfans.com/tags/JAVA/"/>
-    
-      <category term="Spring Cloud" scheme="http://blog.fedfans.com/tags/Spring-Cloud/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>（一）Spring Boot Admin微服务监控中心之入门</title>
-    <link href="http://blog.fedfans.com//page/article/28/"/>
-    <id>http://blog.fedfans.com//page/article/28/</id>
-    <published>2018-04-29T14:59:15.000Z</published>
-    <updated>2018-09-04T12:21:37.713Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h2><p>微服务的稳定性，重要性相比大家想想都很清楚。如果我们的程序出错了，没有即时重启或者没有即时发现影响到了正常的业务，那么我们这个月或者这个季度的绩效基本离最差不远了。</p><p>所以服务的稳定性的保障方式：</p><p>1.代码级别：我们一般通过代码内部级别，比如对应接口的报警，如果出错了，我们就发送邮件给自己来保证自己写的代码不出错。</p><p>2.引用级别：我们可以通过Spring Boot Admin这样的微服务监控中心来看到我们自己写的代码的业务大盘。</p><h2 id="二、Spring-Boot-Admin"><a href="#二、Spring-Boot-Admin" class="headerlink" title="二、Spring Boot Admin"></a>二、Spring Boot Admin</h2><p>如果我们使用Spring Boot Admin的微服务监控中心，首先，我们需要搭建Spring Boot Admin的server，我们先新建一个工程，同时安装pom包：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">   &lt;groupId&gt;de.codecentric&lt;/groupId&gt;</span><br><span class="line">   &lt;artifactId&gt;spring-boot-admin-starter-server&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">   &lt;groupId&gt;de.codecentric&lt;/groupId&gt;</span><br><span class="line">   &lt;artifactId&gt;spring-boot-admin-server-ui&lt;/artifactId&gt;</span><br><span class="line">   &lt;version&gt;1.4.6&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure><p>安装完上面的之后，我们在程序的主入口添加这个装饰器：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@EnableAdminServer</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpringBootAdminServerApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">      SpringApplication.run(SpringBootAdminServerApplication.class, args);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><p>然后自此我们完成了我们的微服务监控中心。</p><p>三、效果图和代码<br>效果图：</p><p><img src="https://520stone-blog.oss-cn-beijing.aliyuncs.com/upload/2018-04-29T15:20:14Z/79305ba9-9433-4345-97b3-f3f442f8f653.png" alt=""></p><p>代码：<a href="https://github.com/stone-jin/spring-boot-admin-server" target="_blank" rel="noopener">https://github.com/stone-jin/spring-boot-admin-server</a></p><p>四、下一章内容<br>本文讲述了如何提供一个微服务监控中心，下一文，我们要实战将一个微服务注册到这个微服务监控中心来。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;一、简介&quot;&gt;&lt;a href=&quot;#一、简介&quot; class=&quot;headerlink&quot; title=&quot;一、简介&quot;&gt;&lt;/a&gt;一、简介&lt;/h2&gt;&lt;p&gt;微服务的稳定性，重要性相比大家想想都很清楚。如果我们的程序出错了，没有即时重启或者没有即时发现影响到了正常的业务，那么我们这
       
     
     </summary>
