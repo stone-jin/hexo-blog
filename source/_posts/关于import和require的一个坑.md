@@ -1,8 +1,8 @@
 ---
-title: 理解import和require之间的区别
+title: Node.js里面import和require一样吗？
 date: 2018-09-10 20:28:31
 subtitle: import * as http from 'http'; 和 const http = require('http')这两个是否是相同的？
-cover: https://n.res.netease.com/xt/wallpaper_2018/lpbz/13/1920X1080.jpg
+cover: http://520stone-blog.oss-cn-beijing.aliyuncs.com/blog_fedfans/1920X1080.jpg
 author: 
   nick: 金炳
   link: https://www.github.com/stone-jin
@@ -15,7 +15,7 @@ tags:
 ---
 
 ## 内容简介
-本文主要讲解内容：import * as http from 'http'; 和 const http = require('http')这两个是否是相同的？
+本文主要讲解内容：import * as http from 'http'; 和 const http = require('http')这两种写法是否效果是相同的？
 
 ## 问题场景篇
 我的ts的代码里面，把import * as http from 'http'; 和 const http = require('http')，这两个表现不一样。
@@ -137,3 +137,5 @@ import * as http from 'http';
 const http = require("http");
 //简称这个地方不会帮我们包一层namespace
 ```
+
+所以Node.js里面，typescript，关于模块引用，我们可以选择用es module的形式去引用一个包，也可以用commonJS的方式去引用一个包，如果你是用es6在写。那es6那边你import了一个包，那就会多一个namespace这样的东西。如果有不对，请帮忙指正下。
