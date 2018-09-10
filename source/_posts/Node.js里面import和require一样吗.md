@@ -18,9 +18,9 @@ tags:
 本文主要讲解内容：import * as http from 'http'; 和 const http = require('http')这两种写法是否效果是相同的？
 
 ## 问题场景篇
-我的ts的代码里面，把import * as http from 'http'; 和 const http = require('http')，这两个表现不一样。
+我的ts的代码遇到一个情况，import * as http from 'http'; 和 const http = require('http')，这两个表现不一样。
 
-如下代码: A.ts是我封装的一个包，相当于内部，我使用shimmer对这个http的createServer这个函数进行hook，然后方便做代码http接口调用情况的统计。main.ts假设是业务系统里面的代码，内部假设使用的是var koa = require('koa')，底层肯定是http的createServer，所以我们此处用var http = require('http')来模拟，然后发现A.ts包里面如果我用import * as http from 'http';则hook不了对应的createServer的代码，但是我用const http = require('http')就可以hook。
+如下代码: 
 
 A.ts
 ```typescript
@@ -38,6 +38,9 @@ shimmer.wrap(http, 'createServer', original=>{
    }
 });
 ```
+A.ts是我封装的代码精简版，内部我使用shimmer对这个http的createServer这个函数进行hook，然后方便做代码http接口调用情况的统计。
+
+然后main.ts是业务系统里面的代码，内部我们常常使用的是var koa = require('koa')，koa底层肯定是http的createServer，所以我们此处用var http = require('http')来模拟。
 
 main.ts(业务代码里面，假设是require('http'))
 ```typescript
@@ -49,8 +52,10 @@ const proxy = http.createServer((req: any, res : any) => {
 });
 ```
 
+运行后发现A.ts包里面如果我用import * as http from 'http' 不能hook对应的createServer的代码，但是我用const http = require('http')就可以hook。
+
 ## 问题排查
-然后将对应的ts代码编译代码后发现: import 的代码编译成了下面这种代码
+然后将对应的ts代码编译代码后，发现import 的代码编译成了下面这种代码
 ```javascript
 var __importStar = (this && this.__importStar) || function (mod) {
     if (mod && mod.__esModule) return mod;
@@ -61,11 +66,11 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 const http = __importStar(require("http"));
 ```
-相当于我写的代码为什么不是
+按理，如我们标题一样，不应该是import * as http from 'http'，应该等于const http= require('http')吗?所以为何不是
 ```javascript
 const http = require('http')
 ```
-呢？不然我hook的其实是这个__importStar里面这个result上面的createServer这个函数
+呢？不然我hook的其实是这个__importStar里面这个result这个新的{}对象上面的createServer这个函数。那我们谷歌查询__importStar，
 
 最终，查到原来是ts的配置项中的esModuleInterop被设置成了true导致的。我们查看tsconfig.json文件里面的描述
 ```text
@@ -78,8 +83,8 @@ Enables emit interoperability between CommonJS and ES Modules via creation of na
 esModuleInterop: false
 ```
 
-## 继续深入查询
-然后我们看一下babel那块对于import这块的处理，我们写一个main.js
+## 继续深入了解
+那我们就去看一下babel那块对于import这块的处理，我们写一个main.js
 ```javascript
 import * as http from 'http';
 
@@ -119,10 +124,10 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 http.get("http://www.baidu.com");
 ```
-然后我们也看到了一个类似__importStar这样的函数，也就是_interopRequireWildcard，也是内部去创建了一个{}。
+然后我们也看到了一个类似__importStar这样的函数，也就是_interopRequireWildcard，也是内部去创建了一个{}这个对象。
 
-## 对比
-所以我们最终可以得到一个结果，babel这边
+## 结论
+所以我们最终可以得到一个结论，babel这边
 ```javascript
 import * as http from 'http';
 ```
