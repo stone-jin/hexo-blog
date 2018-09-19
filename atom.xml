@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.fedfans.com/"/>
-  <updated>2018-09-10T13:32:10.133Z</updated>
+  <updated>2018-09-19T02:31:24.644Z</updated>
   <id>http://blog.fedfans.com/</id>
   
   <author>
@@ -15,6 +15,38 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Koa相关源码阅读系列</title>
+    <link href="http://blog.fedfans.com//page/article/Node%E7%9B%B8%E5%85%B3%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E7%B3%BB%E5%88%97/"/>
+    <id>http://blog.fedfans.com//page/article/Node相关源码阅读系列/</id>
+    <published>2018-09-19T00:06:06.000Z</published>
+    <updated>2018-09-19T02:31:24.644Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="系列篇"><a href="#系列篇" class="headerlink" title="系列篇"></a>系列篇</h2><ol><li>Koa源码(阅读进度：0%)<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">地址: https://github.com/koajs/koa</span><br></pre></td></tr></table></figure></li></ol><p>解析文章：</p><ol start="2"><li>Koa-Router源码（阅读进度：100%）<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">地址：</span><br></pre></td></tr></table></figure></li></ol><p>解析文章：</p><ol start="3"><li>Koa-compose源码（阅读进度：100%）<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">地址: https://github.com/koajs/compose</span><br></pre></td></tr></table></figure></li></ol><p>解析文章：</p><ol start="4"><li>Koa-bodyparser源码（阅读进度：0%）<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">地址：https://github.com/koajs/bodyparser</span><br></pre></td></tr></table></figure></li></ol><p>解析文章:</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;系列篇&quot;&gt;&lt;a href=&quot;#系列篇&quot; class=&quot;headerlink&quot; title=&quot;系列篇&quot;&gt;&lt;/a&gt;系列篇&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;Koa源码(阅读进度：0%)&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td
+      
+    
+    </summary>
+    
+      <category term="后端" scheme="http://blog.fedfans.com/categories/%E5%90%8E%E7%AB%AF/"/>
+    
+      <category term="Node" scheme="http://blog.fedfans.com/categories/%E5%90%8E%E7%AB%AF/Node/"/>
+    
+      <category term="Koa" scheme="http://blog.fedfans.com/categories/%E5%90%8E%E7%AB%AF/Node/Koa/"/>
+    
+    
+      <category term="NodeJS" scheme="http://blog.fedfans.com/tags/NodeJS/"/>
+    
+      <category term="源码阅读" scheme="http://blog.fedfans.com/tags/%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/"/>
+    
+  </entry>
   
   <entry>
     <title>Node.js里面import和require一样吗？</title>
@@ -239,33 +271,6 @@
   </entry>
   
   <entry>
-    <title>搭建自己的gitlab服务以及gitlab-ci的开发模式</title>
-    <link href="http://blog.fedfans.com//page/article/39/"/>
-    <id>http://blog.fedfans.com//page/article/39/</id>
-    <published>2018-07-10T05:13:20.000Z</published>
-    <updated>2018-08-31T14:53:42.659Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h2><p>本地我自己肯定是搭建了自己的gitlab仓库的。这次主要是出于gitlab-ci的考虑，想要在把原本自己的ci流程，从本地的jenkins转义到gitlab-ci上，只需要提交代码，就能部署到我自己的服务器上面，并且希望是能区分预发布服和线上服两种环境，本地就当开发环境了。测试环境就不搞了，预发布就当测试环境用好了。所以本次目的，就是在自己的阿里云上面搭建自己的gitlab服务，域名就选择使用gitlab.fedfans.com这个域名好了。</p><h2 id="二、搭建过程"><a href="#二、搭建过程" class="headerlink" title="二、搭建过程"></a>二、搭建过程</h2><p>搭建过程主要涉及到几步：</p><ul><li>docker环境搭建（因为拿的是新的一台阿里云机器）</li><li>gitlab docker镜像运行</li><li>然后gitlab-ci的runner搭建</li><li>测试整个gitlab-ci的流程</li></ul><p>第一步：</p><p>docker官方提供了centos环境里面怎么安装docker。<a href="https://docs.docker.com/install/linux/docker-ce/centos/" target="_blank" rel="noopener">https://docs.docker.com/install/linux/docker-ce/centos/</a></p><p>第二步:</p><p>gitlab官方提供了如果使用docker安装gitlab的环境。</p><p>第三步:</p><p>3.1 根据环境安装gitlab runner, <a href="https://docs.gitlab.com/runner/" target="_blank" rel="noopener">https://docs.gitlab.com/runner/</a></p><p>3.2 然后使用linux的安装方法。<a href="https://docs.gitlab.com/runner/install/linux-manually.html" target="_blank" rel="noopener">https://docs.gitlab.com/runner/install/linux-manually.html</a></p><p>3.3 然后我们使用gitlab-runner register</p><p>他会提示我们输入gitlab地址，这个在项目的CI/CD pipelines上面有个url和token我们分别输入到gitlab-runner register中，同时使用shell模式</p><p>3.4 然后会在当前这个目录下生成一个config.toml文件</p><p>3.5 我们修改这个config.toml文件</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">concurrent = 1修改为concurrent=8</span><br></pre></td></tr></table></figure><p>3.6 然后我们使用这个shell脚本进行启动<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line">#! /bin/sh</span><br><span class="line"># chkconfig: - 99 01</span><br><span class="line"># description: GitLab Runner</span><br><span class="line"># processname: /usr/bin/gitlab-ci-multi-runner</span><br><span class="line"></span><br><span class="line"># Source function library.</span><br><span class="line">. /etc/rc.d/init.d/functions</span><br><span class="line"></span><br><span class="line">name=&quot;yydbhz&quot;</span><br><span class="line">desc=&quot;yydbhz&quot;</span><br><span class="line">user=&quot;&quot;</span><br><span class="line">cmd=/home/root/.gitlab-runner/gitlab-runner</span><br><span class="line">args=&quot; &quot;run&quot; &quot;--working-directory&quot; &quot;/home/root/.gitlab-runner&quot; &quot;--config&quot; &quot;/home/root/.gitlab-runner/config.toml&quot; &quot;--service&quot; &quot;gitlab-runner&quot;  &quot;--syslog&quot;&quot;</span><br><span class="line">lockfile=/home/root/.gitlab-runner/$name</span><br><span class="line">pidfile=/home/root/.gitlab-runner/$name.pid</span><br><span class="line"></span><br><span class="line"># Source networking configuration.</span><br><span class="line">[ -r /etc/sysconfig/$name ] &amp;&amp; . /etc/sysconfig/$name</span><br><span class="line"></span><br><span class="line">start() &#123;</span><br><span class="line">    echo -n $&quot;Starting $desc: &quot;</span><br><span class="line">    daemon \</span><br><span class="line">         \</span><br><span class="line">         \</span><br><span class="line">        &quot;$cmd $args &lt;/dev/null &gt;/dev/null 2&gt;/dev/null &amp; echo \$! &gt; $pidfile&quot;</span><br><span class="line">    retval=$?</span><br><span class="line">    [ $retval -eq 0 ] &amp;&amp; touch $lockfile</span><br><span class="line">    echo</span><br><span class="line">    return $retval</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">stop() &#123;</span><br><span class="line">    echo -n $&quot;Stopping $desc: &quot;</span><br><span class="line">    killproc -p $pidfile $cmd -TERM</span><br><span class="line">    retval=$?</span><br><span class="line">    [ $retval -eq 0 ] &amp;&amp; rm -f $lockfile</span><br><span class="line">    rm -f $pidfile</span><br><span class="line">    echo</span><br><span class="line">    return $retval</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">restart() &#123;</span><br><span class="line">    stop</span><br><span class="line">    start</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">reload() &#123;</span><br><span class="line">    echo -n $&quot;Reloading $desc: &quot;</span><br><span class="line">    killproc -p $pidfile $cmd -HUP</span><br><span class="line">    RETVAL=$?</span><br><span class="line">    echo</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">force_reload() &#123;</span><br><span class="line">    restart</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">rh_status() &#123;</span><br><span class="line">    status -p $pidfile $cmd</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">rh_status_q() &#123;</span><br><span class="line">    rh_status &gt;/dev/null 2&gt;&amp;1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">case &quot;$1&quot; in</span><br><span class="line">    start)</span><br><span class="line">        rh_status_q &amp;&amp; exit 0</span><br><span class="line">        $1</span><br><span class="line">        ;;</span><br><span class="line">    stop)</span><br><span class="line">        rh_status_q || exit 0</span><br><span class="line">        $1</span><br><span class="line">        ;;</span><br><span class="line">    restart)</span><br><span class="line">        $1</span><br><span class="line">        ;;</span><br><span class="line">    reload)</span><br><span class="line">        rh_status_q || exit 7</span><br><span class="line">        $1</span><br><span class="line">        ;;</span><br><span class="line">    force-reload)</span><br><span class="line">        force_reload</span><br><span class="line">        ;;</span><br><span class="line">    status)</span><br><span class="line">        rh_status</span><br><span class="line">        ;;</span><br><span class="line">    condrestart|try-restart)</span><br><span class="line">        rh_status_q || exit 0</span><br><span class="line">        ;;</span><br><span class="line">    *)</span><br><span class="line">        echo $&quot;Usage: $0 &#123;start|stop|status|restart|condrestart|try-restart|reload|force-reload&#125;&quot;</span><br><span class="line">        exit 2</span><br><span class="line">esac</span><br></pre></td></tr></table></figure></p><p>然后我们使用这个脚本进行启动。</p><p>最终gitlab-ci搭建完毕。</p><p>然后gitlab-ci的使用，我们后面讲解下。</p><h2 id="三、总结"><a href="#三、总结" class="headerlink" title="三、总结"></a>三、总结</h2><p>jenkins的流程，用了不少时间了，关于工程化个人也是比较熟练了。然后本次呢主要想要更快更敏捷的开发，同时在ci的流程中比如将部署还能选择预发布和线上这种区分，所以很方便，虽然放到阿里云服务器，带来的是上传代码变慢，这个总能解决。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;一、简介&quot;&gt;&lt;a href=&quot;#一、简介&quot; class=&quot;headerlink&quot; title=&quot;一、简介&quot;&gt;&lt;/a&gt;一、简介&lt;/h2&gt;&lt;p&gt;本地我自己肯定是搭建了自己的gitlab仓库的。这次主要是出于gitlab-ci的考虑，想要在把原本自己的ci流程，从本地的
-      
-    
-    </summary>
-    
-      <category term="工程化" scheme="http://blog.fedfans.com/categories/%E5%B7%A5%E7%A8%8B%E5%8C%96/"/>
-    
-    
-      <category term="Gitlab" scheme="http://blog.fedfans.com/tags/Gitlab/"/>
-    
-      <category term="工程化" scheme="http://blog.fedfans.com/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/"/>
-    
-  </entry>
-  
-  <entry>
     <title>服务器资源有限，所以给服务器配置下swap</title>
     <link href="http://blog.fedfans.com//page/article/40/"/>
     <id>http://blog.fedfans.com//page/article/40/</id>
@@ -290,6 +295,33 @@
       <category term="Swap" scheme="http://blog.fedfans.com/tags/Swap/"/>
     
       <category term="环境搭建" scheme="http://blog.fedfans.com/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>搭建自己的gitlab服务以及gitlab-ci的开发模式</title>
+    <link href="http://blog.fedfans.com//page/article/39/"/>
+    <id>http://blog.fedfans.com//page/article/39/</id>
+    <published>2018-07-10T05:13:20.000Z</published>
+    <updated>2018-08-31T14:53:42.659Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h2><p>本地我自己肯定是搭建了自己的gitlab仓库的。这次主要是出于gitlab-ci的考虑，想要在把原本自己的ci流程，从本地的jenkins转义到gitlab-ci上，只需要提交代码，就能部署到我自己的服务器上面，并且希望是能区分预发布服和线上服两种环境，本地就当开发环境了。测试环境就不搞了，预发布就当测试环境用好了。所以本次目的，就是在自己的阿里云上面搭建自己的gitlab服务，域名就选择使用gitlab.fedfans.com这个域名好了。</p><h2 id="二、搭建过程"><a href="#二、搭建过程" class="headerlink" title="二、搭建过程"></a>二、搭建过程</h2><p>搭建过程主要涉及到几步：</p><ul><li>docker环境搭建（因为拿的是新的一台阿里云机器）</li><li>gitlab docker镜像运行</li><li>然后gitlab-ci的runner搭建</li><li>测试整个gitlab-ci的流程</li></ul><p>第一步：</p><p>docker官方提供了centos环境里面怎么安装docker。<a href="https://docs.docker.com/install/linux/docker-ce/centos/" target="_blank" rel="noopener">https://docs.docker.com/install/linux/docker-ce/centos/</a></p><p>第二步:</p><p>gitlab官方提供了如果使用docker安装gitlab的环境。</p><p>第三步:</p><p>3.1 根据环境安装gitlab runner, <a href="https://docs.gitlab.com/runner/" target="_blank" rel="noopener">https://docs.gitlab.com/runner/</a></p><p>3.2 然后使用linux的安装方法。<a href="https://docs.gitlab.com/runner/install/linux-manually.html" target="_blank" rel="noopener">https://docs.gitlab.com/runner/install/linux-manually.html</a></p><p>3.3 然后我们使用gitlab-runner register</p><p>他会提示我们输入gitlab地址，这个在项目的CI/CD pipelines上面有个url和token我们分别输入到gitlab-runner register中，同时使用shell模式</p><p>3.4 然后会在当前这个目录下生成一个config.toml文件</p><p>3.5 我们修改这个config.toml文件</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">concurrent = 1修改为concurrent=8</span><br></pre></td></tr></table></figure><p>3.6 然后我们使用这个shell脚本进行启动<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line">#! /bin/sh</span><br><span class="line"># chkconfig: - 99 01</span><br><span class="line"># description: GitLab Runner</span><br><span class="line"># processname: /usr/bin/gitlab-ci-multi-runner</span><br><span class="line"></span><br><span class="line"># Source function library.</span><br><span class="line">. /etc/rc.d/init.d/functions</span><br><span class="line"></span><br><span class="line">name=&quot;yydbhz&quot;</span><br><span class="line">desc=&quot;yydbhz&quot;</span><br><span class="line">user=&quot;&quot;</span><br><span class="line">cmd=/home/root/.gitlab-runner/gitlab-runner</span><br><span class="line">args=&quot; &quot;run&quot; &quot;--working-directory&quot; &quot;/home/root/.gitlab-runner&quot; &quot;--config&quot; &quot;/home/root/.gitlab-runner/config.toml&quot; &quot;--service&quot; &quot;gitlab-runner&quot;  &quot;--syslog&quot;&quot;</span><br><span class="line">lockfile=/home/root/.gitlab-runner/$name</span><br><span class="line">pidfile=/home/root/.gitlab-runner/$name.pid</span><br><span class="line"></span><br><span class="line"># Source networking configuration.</span><br><span class="line">[ -r /etc/sysconfig/$name ] &amp;&amp; . /etc/sysconfig/$name</span><br><span class="line"></span><br><span class="line">start() &#123;</span><br><span class="line">    echo -n $&quot;Starting $desc: &quot;</span><br><span class="line">    daemon \</span><br><span class="line">         \</span><br><span class="line">         \</span><br><span class="line">        &quot;$cmd $args &lt;/dev/null &gt;/dev/null 2&gt;/dev/null &amp; echo \$! &gt; $pidfile&quot;</span><br><span class="line">    retval=$?</span><br><span class="line">    [ $retval -eq 0 ] &amp;&amp; touch $lockfile</span><br><span class="line">    echo</span><br><span class="line">    return $retval</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">stop() &#123;</span><br><span class="line">    echo -n $&quot;Stopping $desc: &quot;</span><br><span class="line">    killproc -p $pidfile $cmd -TERM</span><br><span class="line">    retval=$?</span><br><span class="line">    [ $retval -eq 0 ] &amp;&amp; rm -f $lockfile</span><br><span class="line">    rm -f $pidfile</span><br><span class="line">    echo</span><br><span class="line">    return $retval</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">restart() &#123;</span><br><span class="line">    stop</span><br><span class="line">    start</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">reload() &#123;</span><br><span class="line">    echo -n $&quot;Reloading $desc: &quot;</span><br><span class="line">    killproc -p $pidfile $cmd -HUP</span><br><span class="line">    RETVAL=$?</span><br><span class="line">    echo</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">force_reload() &#123;</span><br><span class="line">    restart</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">rh_status() &#123;</span><br><span class="line">    status -p $pidfile $cmd</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">rh_status_q() &#123;</span><br><span class="line">    rh_status &gt;/dev/null 2&gt;&amp;1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">case &quot;$1&quot; in</span><br><span class="line">    start)</span><br><span class="line">        rh_status_q &amp;&amp; exit 0</span><br><span class="line">        $1</span><br><span class="line">        ;;</span><br><span class="line">    stop)</span><br><span class="line">        rh_status_q || exit 0</span><br><span class="line">        $1</span><br><span class="line">        ;;</span><br><span class="line">    restart)</span><br><span class="line">        $1</span><br><span class="line">        ;;</span><br><span class="line">    reload)</span><br><span class="line">        rh_status_q || exit 7</span><br><span class="line">        $1</span><br><span class="line">        ;;</span><br><span class="line">    force-reload)</span><br><span class="line">        force_reload</span><br><span class="line">        ;;</span><br><span class="line">    status)</span><br><span class="line">        rh_status</span><br><span class="line">        ;;</span><br><span class="line">    condrestart|try-restart)</span><br><span class="line">        rh_status_q || exit 0</span><br><span class="line">        ;;</span><br><span class="line">    *)</span><br><span class="line">        echo $&quot;Usage: $0 &#123;start|stop|status|restart|condrestart|try-restart|reload|force-reload&#125;&quot;</span><br><span class="line">        exit 2</span><br><span class="line">esac</span><br></pre></td></tr></table></figure></p><p>然后我们使用这个脚本进行启动。</p><p>最终gitlab-ci搭建完毕。</p><p>然后gitlab-ci的使用，我们后面讲解下。</p><h2 id="三、总结"><a href="#三、总结" class="headerlink" title="三、总结"></a>三、总结</h2><p>jenkins的流程，用了不少时间了，关于工程化个人也是比较熟练了。然后本次呢主要想要更快更敏捷的开发，同时在ci的流程中比如将部署还能选择预发布和线上这种区分，所以很方便，虽然放到阿里云服务器，带来的是上传代码变慢，这个总能解决。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;一、简介&quot;&gt;&lt;a href=&quot;#一、简介&quot; class=&quot;headerlink&quot; title=&quot;一、简介&quot;&gt;&lt;/a&gt;一、简介&lt;/h2&gt;&lt;p&gt;本地我自己肯定是搭建了自己的gitlab仓库的。这次主要是出于gitlab-ci的考虑，想要在把原本自己的ci流程，从本地的
+      
+    
+    </summary>
+    
+      <category term="工程化" scheme="http://blog.fedfans.com/categories/%E5%B7%A5%E7%A8%8B%E5%8C%96/"/>
+    
+    
+      <category term="Gitlab" scheme="http://blog.fedfans.com/tags/Gitlab/"/>
+    
+      <category term="工程化" scheme="http://blog.fedfans.com/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/"/>
     
   </entry>
   
@@ -529,33 +561,6 @@
       
       
         &lt;h2 id=&quot;一、介绍&quot;&gt;&lt;a href=&quot;#一、介绍&quot; class=&quot;headerlink&quot; title=&quot;一、介绍&quot;&gt;&lt;/a&gt;一、介绍&lt;/h2&gt;&lt;p&gt;前面两篇文章，我们一篇讲述了如何搭建一个Spring Boot Admin，一篇介绍了如何使用Spring Boot Adm
-      
-    
-    </summary>
-    
-      <category term="Spring Cloud" scheme="http://blog.fedfans.com/categories/Spring-Cloud/"/>
-    
-    
-      <category term="JAVA" scheme="http://blog.fedfans.com/tags/JAVA/"/>
-    
-      <category term="Spring Cloud" scheme="http://blog.fedfans.com/tags/Spring-Cloud/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>（二）Spring Boot Admin微服务监控中心之节点注册</title>
-    <link href="http://blog.fedfans.com//page/article/29/"/>
-    <id>http://blog.fedfans.com//page/article/29/</id>
-    <published>2018-04-30T02:57:35.000Z</published>
-    <updated>2018-09-04T12:19:39.161Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h2><p>前面一篇文章，我们讲述了如何使用Spring Boot Admin搭建我们的微服务监控中心的server端，这篇文章我们主要是介绍我们如何让我们的应用注册到微服务的监控中心来，最终达到我们监控的目的。</p><h2 id="二、使用到的点"><a href="#二、使用到的点" class="headerlink" title="二、使用到的点"></a>二、使用到的点</h2><p>Spring Boot Admin的client端，我们主要使用spring boot actuator和spring boot admin的client两个pom包。</p><p>pom文件中我们添加如下两个pom包，然后reimport我们的maven。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">   &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">   &lt;artifactId&gt;spring-boot-starter-actuator&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">   &lt;groupId&gt;de.codecentric&lt;/groupId&gt;</span><br><span class="line">   &lt;artifactId&gt;spring-boot-admin-starter-client&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure><p>然后我们在application.yml中添加spring boot admin的server端的地址：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spring.boot.admin.url=http://127.0.0.1:8080</span><br></pre></td></tr></table></figure></p><p>然后我们可以刷新刚刚我们的Spring Boot Admin的页面查看效果：</p><p><img src="https://520stone-blog.oss-cn-beijing.aliyuncs.com/upload/2018-04-30T12:56:35Z/2326eea3-d2b4-438e-a855-5e1bcc635299.png" alt=""></p><p>然后我们使用的时候，就打开着这个网站，当服务有上下线的时候，就会有h5的通知，同时在Journal可以看到上下线过的历史记录。</p><p>三、改进点<br>我们要解决的是，如何让服务上下线的时候，会收到邮件通知，同时如何搭建Spring Boot Admin的集群</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;一、简介&quot;&gt;&lt;a href=&quot;#一、简介&quot; class=&quot;headerlink&quot; title=&quot;一、简介&quot;&gt;&lt;/a&gt;一、简介&lt;/h2&gt;&lt;p&gt;前面一篇文章，我们讲述了如何使用Spring Boot Admin搭建我们的微服务监控中心的server端，这篇文章我们主要
       
     
     </summary>
