@@ -2,7 +2,7 @@
 title: Koa相关源码阅读系列
 date: 2018-09-19 08:06:06
 subtitle: Koa2.0相关的源码阅读
-cover: http://520stone-blog.oss-cn-beijing.aliyuncs.com/blog_fedfans/1920X1080.jpg
+cover: https://520stone-blog.oss-cn-beijing.aliyuncs.com/blog_fedfans/%E4%BF%AE%E7%BA%BF%E8%B7%AF.jpg
 author: 
   nick: 金炳
   link: https://www.github.com/stone-jin
