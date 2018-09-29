@@ -1,7 +1,7 @@
 ---
 title: 通过Angular6创建Custom Elements/Web Components《翻译》
 subtitle: 对于老项目重构难度较大、可以通过这种方式进行新功能或者局部重构成新功能
-cover: https://user-images.githubusercontent.com/6525544/46182151-acb6ac00-c2fc-11e8-98bb-9c8422dd0f87.png
+cover: https://user-images.githubusercontent.com/6525544/46247912-d975db00-c444-11e8-8e3b-ab547f79a31f.png
 date: 2018-09-27 23:41:25
 author: 
   nick: 金炳
