@@ -363,4 +363,4 @@ NgDoCheck 本身并非没有问题:)由于只有在检查了父组件时才会�
 
 ## 想要了解更多有关 Angular 中变更检查的更多信息？
 
-首先，阅读[These 5 articles will make you an Angular Change Detection expert.](https://blog.angularindepth.com/these-5-articles-will-make-you-an-angular-change-detection-expert-ed530d28930).如果你想要牢固掌握 Angular 中的变化检测机制，那么这个系列是必读的。每篇文章都以前一篇文章中解释的信息为基础，然后以高级的维度讲解实现细节。
+首先，阅读[These 5 articles will make you an Angular Change Detection expert.](https://www.520stone.com/page/article/五篇让你成为Angular变化检测专家/).如果你想要牢固掌握 Angular 中的变化检测机制，那么这个系列是必读的。每篇文章都以前一篇文章中解释的信息为基础，然后以高级的维度讲解实现细节。
