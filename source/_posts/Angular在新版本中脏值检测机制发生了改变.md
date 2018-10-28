@@ -16,7 +16,7 @@ tags:
 
 Angular's $digest is gone. Long live the digest!
 
-我用 Angular.js 工作了几年，尽管受到了广泛的批评，但我依然认为这是一个很棒的框架。我从<Builing your own Angular.js>这本书入手，并且阅读了大部分框架的源码。所以我对 Angular.js 内部工作有了扎实的了解，并且很好的掌握了框架构建的思想。现在，我试图在更新后的 Angular 中 达到相同的理解水平，并且在版本之间映射想法。我发现，与互联网声称的 Angular 相反，Angular 还是借用了其前身的很多想法。
+我用 Angular.js 工作了几年，尽管受到了广泛的批评，但我依然认为这是一个很棒的框架。我从《Builing your own Angular.js》这本书入手，并且阅读了大部分框架的源码。所以我对 Angular.js 内部工作有了扎实的了解，并且很好的掌握了框架构建的思想。现在，我试图在更新后的 Angular 中 达到相同的理解水平，并且在版本之间映射想法。我发现，与互联网声称的 Angular 相反，Angular 还是借用了其前身的很多想法。
 
 其中一个想法就是臭名鼎鼎的[循环脏值检测](https://larseidnes.com/2014/11/05/angularjs-the-bad-parts/):
 
