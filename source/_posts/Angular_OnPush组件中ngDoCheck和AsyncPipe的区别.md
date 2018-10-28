@@ -22,9 +22,7 @@ tags:
 
 首先，我先演示如何手动触发 change detetion。这些技术使你可以更好的在 Angular 在输入绑定和异步值检查时做更好的比较。接下来让我与您分享对于这些解决方法在性能方面影响的一些看法吧。
 
-```
-我是一个在ag-Grid方面的开发拥护者。如果你对了解数据网格或者正在寻找Angular在数据网格这块的解决方案，可以阅读[Get started with Angular grid in 5 minutes](https://medium.com/ag-grid/get-started-with-angular-grid-in-5-minutes-83bbb14fac93)或者向我提一些问题。
-```
+我是一个在 ag-Grid 方面的开发拥护者。如果你对了解数据网格或者正在寻找 Angular 在数据网格这块的解决方案，可以阅读[Get started with Angular grid in 5 minutes](https://medium.com/ag-grid/get-started-with-angular-grid-in-5-minutes-83bbb14fac93)或者向我提一些问题。
 
 接下来让我们开始吧。
 
@@ -85,7 +83,7 @@ export class BComponent {
 
 ## 输入绑定
 
-我们说过，Angular 只会在绑定发生变化的时候，对 OnPush 的组件进行变更检测。所有让我们看一个输入绑定的例子。假设我们有一个通过从父组件传递下来的输入对象：
+我们说过，Angular 只会在绑定发生变化的时候，对 OnPush 的组件进行变更检测。所以让我们看一个输入绑定的例子。假设我们有一个通过从父组件传递下来的输入对象：
 
 ```
 @Component({
