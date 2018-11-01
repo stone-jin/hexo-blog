@@ -20,7 +20,7 @@ tags:
 
 以下五篇深入文章，将显著提升您对 Angular 中变更检测这块的了解。每一篇文章都是基于前一篇文章中解释的信息，因此我建议你按顺序阅读他们。
 
-### [Angular 在新版本中，脏值检测发生了新的改变](https://blog.angularindepth.com/angulars-digest-is-reborn-in-the-newer-version-of-angular-718a961ebd3e)
+### [Angular 在新版本中，脏值检测发生了新的改变](https://www.520stone.com/page/article/Angular%E5%9C%A8%E6%96%B0%E7%89%88%E6%9C%AC%E4%B8%AD%E8%84%8F%E5%80%BC%E6%A3%80%E6%B5%8B%E6%9C%BA%E5%88%B6%E5%8F%91%E7%94%9F%E4%BA%86%E6%94%B9%E5%8F%98/)
 
 这篇文章对 AngularJS 的脏值检测机制和 Angular 中的更改变更机制做了对比。它解释了对他们的需求，并展示了如何使用相同的脏检查概念构建它们。然后它提供了一些示例，演示了 Angular 中的生命周期钩子如何用作 AngularJS 中$wattch 的等效机制。它还显示了 Angular 与 AngularJS 的不同之处，因为它现在强制执行所谓的从上到下的所谓单向数据流。本文解释了实施背后的原因，它对架构的好处和限制。本文对于希望迁移到 Angular，正在使用 AngularJS 的开发者很有帮助。
 

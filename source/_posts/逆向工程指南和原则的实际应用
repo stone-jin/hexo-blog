@@ -1,0 +1,61 @@
+---
+title: 逆向工程指南和原则的实际使用
+date: 2018-11-1 12:45:00
+subtitle: 逆向工程指南和原则的实际使用
+cover: https://cdn-images-1.medium.com/max/800/1*ubfdwakiZkd2NqL8egqQbw.jpeg
+author:
+  nick: 金炳
+  link: https://www.github.com/stone-jin
+categories:
+  - 前端
+  - 基础
+tags:
+  - 前端
+  - 基础
+link: https://blog.angularindepth.com/practical-application-of-reverse-engineering-guidelines-and-principles-784c004bb657
+---
+
+在对框架进行逆向工程的同时洞察思维过程。
+
+在 [Level Up Your Reverse Engineering Skills](https://blog.angularindepth.com/level-up-your-reverse-engineering-skills-8f910ae10630) 这篇文章中，我解释了逆向工程的好处，并阐述了成功逆向工程的一些准则和原则。如果你还没有阅读过，我建议你从那里开始。这篇文章将演示这些指南和原则的应用，并介绍我常用的一些调试指南。
+
+我写了这篇文章，因为我正在探索和调试React源代码。为了从中获得更大价值，我建议你使用本文作为指南，进行类似的发现过程。如果你想要进行逆向工程，请以本指南为出发点，与我一起探索这一发现之旅吧。
+
+我很高兴能够了解React的内部工作原理，就像圣诞节早上的孩子一样开心。那么你呢？让我们开始吧.
+
+## 首先获取源码并建立一个简单的工程
+对于逆向工程而言，我们需要React源代码和一个简单的React例子用来调试。让我们从源代码开始吧。我们打开github.com/facebook/react，然后点击Release这个标签。
+
+![](https://cdn-images-1.medium.com/max/800/1*qD86Rxa7YiTHH0889n8E_Q.jpeg)
+
+最新的版本是16.4.2:
+
+![](https://cdn-images-1.medium.com/max/800/1*ONayJDai8h4ja8Z5NNY7HQ.jpeg)
+
+然后我们git clone一份代码:
+
+```
+git clone https://github.com/facebook/react.git
+```
+
+然后查看git仓库的tag:
+
+```
+$ git tag
+…
+v16.4.0
+v16.4.0-alpha.16.4.0-alpha.7926752
+v16.4.0-alpha.5a25959
+v16.4.0-alpha.94a255d
+v16.4.1
+v16.4.2
+```
+
+然后我们checkout到我们想要的版本(v16.4.2):
+
+```
+$ git checkout tags/v16.4.2
+Checking out files: 100% (728/728), done.
+Previous HEAD position was 7d9b4ba35 Update bundle sizes for 16.1.0 release
+HEAD is now at 54adb2674 16.4.2
+```

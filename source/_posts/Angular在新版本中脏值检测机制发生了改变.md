@@ -2,7 +2,7 @@
 title: Angular在新版本中，脏值检测重生了《译》
 date: 2018-10-28 16:15:00
 subtitle: Angular在新版本中，脏值检测重生了
-cover: https://cdn-images-1.medium.com/max/800/1*DEeCWAZ_UhN36xf4aY4EBg.jpeg
+cover: http://520stone-blog.oss-cn-beijing.aliyuncs.com/blog_fedfans/1_DEeCWAZ_UhN36xf4aY4EBg.jpeg
 author:
   nick: 金炳
   link: https://www.github.com/stone-jin
@@ -12,6 +12,7 @@ categories:
 tags:
   - 前端
   - Angular
+link: https://blog.angularindepth.com/angulars-digest-is-reborn-in-the-newer-version-of-angular-718a961ebd3e
 ---
 
 Angular's $digest is gone. Long live the digest!
@@ -91,21 +92,19 @@ $watch(watcher, listener);
 
 ```
 <span>{{name}}</span>
-我们可以通过下面的方法跟踪这个属性并更新DOM
 ```
+我们可以通过下面的方法跟踪这个属性并更新DOM
 
+```
 $watch(() => {
 return person.name
 }, (value) => {
 span.textContent = value
 });
-
 ```
 这基本上就像ng-bind这样的插值和指令。Angular.js使用指令来反射数据在DOM上的表现。最新的Angular不在那么做了。它使用了一个属性映射表来连接数据模型和DOM。现在的实现方式如下:
 ```
-
 <span [textContent]="person.name"></span>
-
 ```
 由于我们有许多构成树的组件，并且每一个组件都有不同的数据模型，因此我们有一个跟组件树非常相似结构的观察者层次结构。观察者使用$scope进行分组，但这并不重要。
 
@@ -121,7 +120,6 @@ Angular没有类似于Angular.js的观察者的概念。但是跟踪数据模型
 
 例如，对于AppComponent有如下一个模板：
 ```
-
 <h1>Hello {{model.name}}</h1>
 ```
 
