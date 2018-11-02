@@ -59,3 +59,176 @@ Checking out files: 100% (728/728), done.
 Previous HEAD position was 7d9b4ba35 Update bundle sizes for 16.1.0 release
 HEAD is now at 54adb2674 16.4.2
 ```
+
+然后我们需要用相同版本的React创建一个工程。我推荐使用一个相对简单的工程-[HTML page with the library](https://reactjs.org/docs/add-react-to-a-website.html#add-react-in-one-minute).并且React打包后的模式是非常棒的。
+
+git clone源代码之后，我们需要将React的版本切到16.4.2版本。我可以在index.html中指定对应的版本.
+
+```
+<script src="https://unpkg.com/react@16.4.2/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@16.4.2/umd/react-dom.development.js" crossorigin></script>
+```
+
+好的，为了测试它能否工作，我们可以在index.html的文件夹中运行http server:
+```
+$ http-server .
+Starting up http-server, serving .
+Available on:
+  http://192.168.0.4:8080
+  http://127.0.0.1:8080
+Hit CTRL-C to stop the server
+```
+
+一切都很好，然后server在端口8080上启动。很好。
+
+## 确定要关注的技术点
+
+好的，现在我需要找出开始逆向工程的起点。现在我想知道变化检测在React中的工作原理。所以这就是我开始的目标。
+
+但是，它仍然没有告诉我在哪里防止调试器语句或在源代码中查找哪些文件。然后我利用我对于现在变化检测的机制的了解，以便找到突破口。
+
+## 了解常见的设计模式和一般的建筑概念
+
+我知道变化检测是组件实例化对象到DOM节点是一个同步的过程。在React中，我们通过调用setState来启动变更检测过程。所以我们从那里触发。但是，由于我从文档中了解到这是一个异步的调用，但我不认为这会直接引导我到相关的部分。因此，相反，我将专注于确定React存储对创建的DOM节点的引用的位置。一单我知道了，我就可以跟踪这些DOM节点的访问位置，并从那里触发。似乎这条路可能让我更接近理解变更检测的最终目标：所以我将专注于DOM节点。
+
+# 寻找DOM节点
+
+在弄清楚DOM节点存储位置之前，我需要知道将为该组件创建哪些DOM nodes。以下是我的简单应用程序中React组件示例:
+
+```
+class LikeButton extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { liked: false };
+  }
+  render() {
+    if (this.state.liked) {
+      return 'You liked this.';
+    }
+    return e(
+      'button',
+      { onClick: () => this.setState({ liked: true }) },
+      'Like'
+    );
+  }
+}
+```
+
+我正在查看负责返回组件模板的render函数。这里的e是React.createElement的别名:
+
+```
+const e = React.createElement;
+```
+
+在Angular中，使用HTML定义组件的模板。但是在React中，模板是通过createElement函数调用组合定义的。所以，我需要弄清楚以下语句会产生什么HTML。
+
+```
+return e(
+    'button',
+    {onClick: () => this.setState({liked: true})},
+    'Like'
+);
+```
+
+好吧，因为它是对createElement函数的调用，所以我可以探索函数的实现。但首先，我需要在源代码中找到该功能。为此，我在Webstorm中打开源代码，并使用IDE的Search Everywhre功能：
+
+![](https://cdn-images-1.medium.com/max/800/1*KYFF1P8BDWIZc_50Fq2_wQ.jpeg)
+
+前两个结果似乎很有希望。我将使用标记来确定我需要的函数。这是react-dom包中函数的标记:
+
+```
+export function createElement(
+  type: string,
+  props: Object,
+  rootContainerElement: Element | Document,
+  parentNamespace: string,
+): Element { ... }
+```
+
+然后这是react包中函数的标记:
+
+```
+export function createElement(type, config, children) { ... }
+```
+
+所以，哪一个是我要的呢?
+
+## 像科学家一样的思考
+
+在[第一篇文章](https://blog.angularindepth.com/level-up-your-reverse-engineering-skills-8f910ae10630)，我定义了科学方法的基础步骤：
+1. 通过观察并形成假设
+2. 根据假设做出预测
+3. 测试预测
+
+所以我们现在来使用这个方法。观察函数的参数列表，我假设第一个方法是被component的render函数所调用。它也在react-dom包中，这增加了我假设的可信度。这是我的假设--来自react-dom包的函数createElement会在render方法中使用。因此，我预测当React调用组件的render方法时，将执行此函数。我现在需要测试预测。为此，我在调用createElement之前放了一个调试语句，运行我的示例，当执行暂停时，我进入e函数调用以查看我将在哪里结束：
+
+![](https://cdn-images-1.medium.com/max/800/1*-xKJX6Jl5Nd2miznXnVk_w.jpeg)
+
+有趣的是，我最终进入了一个createElementWithValidation函数.
+
+![](https://cdn-images-1.medium.com/max/800/1*K7flgnGpPFANYr5ZlpjUjw.jpeg)
+
+这并不是我期望的函数。根据函数名字，我猜测它可能是一个createElement的包装函数。我假设这个函数调用了createElement函数。所以我在源代码中查找了这个函数:
+
+![](https://cdn-images-1.medium.com/max/800/1*ExE1m6mUEvT3K-M9vjet-g.jpeg)
+
+并探索了函数的实现方式。的确，我在内部看到了对createElement的调用:
+```
+export function createElementWithValidation(type, props, children) {
+  const validType = isValidElementType(type);
+  ...
+
+  const element = createElement.apply(this, arguments);
+```
+
+此时，我可以依赖Webstorm的功能继续探索源代码去找出createElement位置的函数，也可以返回调试的源代码。React是用Javascript编写的，对于用JS编写的项目，我通常更喜欢使用IDE的参考引用机制调试源代码。这与TypeScript不同，因为它是强类型的。但在这种情况下，React使用ES模块导入引用:
+```
+import {isValidElement, createElement, ...} from './ReactElement';
+```
+
+这为IDE提供了一种可靠的办法来解析引用的位置。所以我现在坚持使用这个功能。我通过按住Control按键点击createElement，然后Webstrom会引导我到react/src/ReactElement.js中的函数:
+```
+export function createElement(type, config, children) { ... }
+```
+
+它并不是我假设会被调用到的函数!我的假设四错误的。这种情况一直都在发生，不要因为你的假设错误而气馁。
+
+事实上，我对我错误的假设仍然有点怀疑。所以我重新使用调试器进行测试它。在逆向工程期间，在调试和探索源码实现切换是非常常见的。
+
+记住，我们最终进入了createElementWithValidation函数:
+
+![](https://cdn-images-1.medium.com/max/800/1*K7flgnGpPFANYr5ZlpjUjw.jpeg)
+
+然后，向下滚动一点并在createElement函数的那行调用的地方，通过调试器的continue to here的功能:
+
+![](https://cdn-images-1.medium.com/max/800/1*0_HtgxOntAArUG2BYp-nNw.jpeg)
+
+然后我们进入函数调用内部并最终停留在createElement的实现中:
+
+![](https://cdn-images-1.medium.com/max/800/1*2L6VUkomKTqNmTlh1JbpzQ.jpeg)
+
+好吧，我与我使用IDE解析过程找到的函数相同。现在我知道渲染函数中使用了哪一个函数，我可以找出HTML。我只需要匹配函数名和函数调用中的参数:
+
+```
+// signature
+function createElement(type, config, children) { ... }
+// actual call
+return e(
+    'button',
+    {onClick: () => this.setState({liked: true})},
+    'Like'
+);
+```
+
+现在，我使用我对于现代浏览器中DOM是如何使用模板工作的原理。这里有一堆假设。我假设type参数引用DOM节点的标记名称，config指定一堆事件的处理程序。所以我预测基于提供给函数的信息，React将创建对应于以下模板的DOm节点：
+```
+<button (click)="() => this.setState({ liked: true })">
+    Like
+</button>
+```
+
+这些节点将是: 一个具有click事件绑定的按钮元素和具有值为Like的子文本节点。所以这是我的预测，我需要去验证。为此，我需要查看React将创建哪些DOM节点，并将它们与我提出的模板进行比较。
+
+## 请注意关于底层知识关于Template是需要的。你必须了解不同类型的DOM节点。
+
+如果我幸运的话，这些DOM节点将会在createElement函数内创建。由于我在createElement函数中打了一个断点，我将继续调试以探索这个函数内部的主题内容。我可以从源代码那边做到这一点，但我通常更喜欢调试应用程序，主要是因为我不需要依赖IDE解析引用的功能，并且可以立即观察变量所持有的值。
