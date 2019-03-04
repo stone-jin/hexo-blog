@@ -50,7 +50,7 @@ highlight:
 # order_by: Posts order. (Order by date descending by default)
 index_generator:
     path: ''
-    per_page: 10
+    per_page: 9
     order_by: -date
 
 # Category & Tag
@@ -67,7 +67,7 @@ time_format: HH:mm:ss
 
 # Pagination
 ## Set per_page to 0 to disable pagination
-per_page: 10
+per_page: 9
 pagination_dir: page
 
 # Extensions
@@ -158,7 +158,7 @@ header_cover: http://520stone-blog.oss-cn-beijing.aliyuncs.com/blog_fedfans/5005
 error_page_bg: http://oo12ugek5.bkt.clouddn.com/blog/images/dogs.jpg
 
 # page loading icon
-loader_img: http://oo12ugek5.bkt.clouddn.com/blog/images/loader.gif
+loader_img: http://520stone-blog.oss-cn-beijing.aliyuncs.com/blog_fedfans/loading.gif
 
 # author information
 author:
