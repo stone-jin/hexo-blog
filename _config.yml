@@ -5,7 +5,7 @@
 # Site
 title: 大米小米的博客
 subtitle: 大米小米的博客
-subtitle_desc: 一个曾学习硬件相关专业，而后发奋努力学习、有追求的前端全栈工程师
+subtitle_desc: 擅长前端、项目工程化CI/CD、NodeJS、钻研Docker、Kubernetes、Knative、Serverss
 description: 日常学习与兴趣交流的个人博客
 keywords: typescript, nodejs, javascript, webpack, 前端, 全栈开发
 language: zh-cn
@@ -39,20 +39,20 @@ post_asset_folder: false
 relative_link: false
 future: true
 highlight:
-  enable: true
-  line_number: true
-  auto_detect: false
-  tab_replace:
-  
+    enable: true
+    line_number: true
+    auto_detect: false
+    tab_replace:
+
 # Home page setting
 # path: Root path for your blogs index page. (default = '')
 # per_page: Posts displayed per page. (0 = disable pagination)
 # order_by: Posts order. (Order by date descending by default)
 index_generator:
-  path: ''
-  per_page: 10
-  order_by: -date
-  
+    path: ''
+    per_page: 10
+    order_by: -date
+
 # Category & Tag
 default_category: uncategorized
 category_map:
@@ -76,65 +76,65 @@ pagination_dir: page
 theme: hexo-theme-skapp
 # Sass
 node_sass:
-  outputStyle: nested
-  precision: 5
-  sourceComments: false
+    outputStyle: nested
+    precision: 5
+    sourceComments: false
 
 # Autoprefixer
 autoprefixer:
-  exclude:
-  - '*.min.css'
-  browsers:
-  - 'last 2 versions'
+    exclude:
+        - '*.min.css'
+    browsers:
+        - 'last 2 versions'
 
 # Lunr
 lunr:
-  field: all
-  fulltext: false
-  path: assets/lunr/
+    field: all
+    fulltext: false
+    path: assets/lunr/
 
 # filter_cleanup
 hfc_useref:
-  enable: true
-  concat: true
+    enable: true
+    concat: true
 
 hfc_html:
-  enable: true
-  exclude:
+    enable: true
+    exclude:
 
 hfc_css:
-  enable: true
-  exclude:
-  - '*.min.css'
+    enable: true
+    exclude:
+        - '*.min.css'
 
 hfc_js:
-  enable: true
-  mangle: true
-  exclude:
-  - '*.min.js'
+    enable: true
+    mangle: true
+    exclude:
+        - '*.min.js'
 
 hfc_img:
-  enable: false
-  interlaced: false
-  multipass: false
-  optimizationLevel: 2
-  pngquant: false
-  progressive: false
+    enable: false
+    interlaced: false
+    multipass: false
+    optimizationLevel: 2
+    pngquant: false
+    progressive: false
 
 hfc_favicons:
-  enable: false
-  src: img/blog-logo.png
-  target: img/
-  icons:
-    android: true
-    appleIcon: true
-    appleStartup: false
-    coast: false
-    favicons: true
-    firefox: false
-    opengraph: false
-    windows: true
-    yandex: false
+    enable: false
+    src: img/blog-logo.png
+    target: img/
+    icons:
+        android: true
+        appleIcon: true
+        appleStartup: false
+        coast: false
+        favicons: true
+        firefox: false
+        opengraph: false
+        windows: true
+        yandex: false
 
 # self introduction
 introduction: 不思量，自难忘！
@@ -152,7 +152,7 @@ avatar: https://user-images.githubusercontent.com/6525544/44786587-302e9180-abc7
 default_cover: http://oo12ugek5.bkt.clouddn.com/blog/images/18-01-03/2017-To-2018.jpg
 
 # header background picture
-header_cover: http://oo12ugek5.bkt.clouddn.com/blog/images/banner-bg.jpg
+header_cover: http://520stone-blog.oss-cn-beijing.aliyuncs.com/blog_fedfans/500502419_banner.jpg
 
 # 404 page background picture
 error_page_bg: http://oo12ugek5.bkt.clouddn.com/blog/images/dogs.jpg
@@ -162,45 +162,45 @@ loader_img: http://oo12ugek5.bkt.clouddn.com/blog/images/loader.gif
 
 # author information
 author:
-  name: 金炳
-  link: https://github.com/stone-jin
+    name: 金炳
+    link: https://github.com/stone-jin
 
 # footer information
 about:
-  info: 本站是基于 Hexo 搭建的静态资源博客，主要用于分享日常学习、生活及工作的一些心得总结。
-  address: Hangzhou, ZheJiang Province, China
-  email: hzjinbing@163.com
+    info: 本站是基于 Hexo 搭建的静态资源博客，主要用于分享日常学习、生活及工作的一些心得总结。
+    address: Hangzhou, ZheJiang Province, China
+    email: hzjinbing@163.com
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-  type: git
-  repo: https://github.com/stone-jin/hexo-blog.git
-  branch: gh-pages
+    type: git
+    repo: https://github.com/stone-jin/hexo-blog.git
+    branch: gh-pages
 
 # Baidu statistic
 baidu_statistic: f1e4c915dd718aa486135ab51167ad12
 
 # Feed Atom
 feed:
-  type: atom
-  path: atom.xml
-  limit: 20
+    type: atom
+    path: atom.xml
+    limit: 20
 
 # Sitemap
 sitemap:
-  path: sitemap.xml
+    path: sitemap.xml
 
 # Gitalk
 gitTalk:
-  clientId: 63d06125b339465f0bce
-  clientSecret: 12a9180d9606c445e08a9e176254e2cb5a18387b
-  repo: hexo-blog
-  owner: stone-jin
-  admin:
-    - stone-jin
+    clientId: 63d06125b339465f0bce
+    clientSecret: 12a9180d9606c445e08a9e176254e2cb5a18387b
+    repo: hexo-blog
+    owner: stone-jin
+    admin:
+        - stone-jin
 
 menu:
-  home: /
-  archive: /archives
-  about: /about
+    home: /
+    archive: /archives
+    about: /about
