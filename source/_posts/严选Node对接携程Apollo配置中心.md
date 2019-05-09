@@ -15,8 +15,6 @@ tags:
 - 基建
 ---
 
-# 严选Node对接携程Apollo配置中心
-
 ## 目录
 ![](https://cdn.nlark.com/yuque/0/2019/png/187105/1557414849981-a5f61a71-4720-4f78-8801-e1e7d6068a5e.png)
 
